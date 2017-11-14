@@ -1,2 +1,31 @@
 https://docs.phalconphp.com/ar/3.2/volt#overview
 https://olddocs.phalconphp.com/en/3.0.3/reference/views.html
+
+
+
+view 참고
+   - controller
+        $this->view->setTemplateAfter('register');
+        $this->view->setTemplateBefore('register');
+        $this->view->setMainView('layouts/register');
+
+        $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_MAIN_LAYOUT);
+        $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_AFTER_TEMPLATE);
+        $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_BEFORE_TEMPLATE);
+
+   - volt
+    {% set numbers = ['one': 1, 'two': 2, 'three': 3] %}
+
+    {{ dump(numbers) }}<br/>
+
+    {% for name, value in numbers %}
+    Name: {{ name }} Value: {{ value }}<br/>
+    {% endfor %}
+
+    {{ dispatcher.getControllerName() }}<br/>
+    {{ dispatcher.getActionName() }}<br/>
+    =======================================<br/>
+    {{ router.getControllerName() }}<br/>
+    {{ router.getActionName() }}<br/>
+
+
