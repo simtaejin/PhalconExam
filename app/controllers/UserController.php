@@ -6,6 +6,11 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class UserController extends ControllerBase
 {
+    public function initialize()
+    {
+        $this->view->setTemplateAfter('backend');
+    }
+
     /**
      * Index action
      */

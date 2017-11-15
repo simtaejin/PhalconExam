@@ -30,6 +30,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?= $this->url->get('loginout/login') ?>">로그인</a></li>
+                <li><a href="<?= $this->url->get('member/register') ?>">회원가입</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
