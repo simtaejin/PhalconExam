@@ -21,10 +21,20 @@ class LoginoutController extends ControllerBase
         $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_AFTER_TEMPLATE);
     }
 
+
+    /**
+     * 회원로그인 처리
+     */
+    public function dologinAction()
+    {
+        print_r($_REQUEST);
+    }
+    
+
     /**
      * 회원로그아웃
      */
-    public function  logoutAction()
+    public function logoutAction()
     {
 
     }
