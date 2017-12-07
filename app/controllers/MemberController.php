@@ -15,19 +15,6 @@ class MemberController extends ControllerBase
     /**
      * 회원등록
      */
-    public function RegisterAction()
-    {
-
-    }
-
-    /**
-     * 회원삭제
-     */
-    public function deRegisterAction()
-    {
-
-    }
-
     public function doRegisterAction()
     {
         if ($this->security->checkToken() == false) {
@@ -55,5 +42,14 @@ class MemberController extends ControllerBase
 
         exit;
     }
+
+    /**
+     * 회원삭제
+     */
+    public function deRegisterAction()
+    {
+
+    }
+
 }
 

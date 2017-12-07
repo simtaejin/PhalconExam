@@ -27,16 +27,41 @@ class LoginoutController extends ControllerBase
      */
     public function dologinAction()
     {
-        print_r($_REQUEST);
+
+        $this->view->disable();
+
+        if ($this->security->checkToken() == false) {
+            $this->flash->error('Invalid CSRF Token');
+            $this->response->redirect("loginout/login");
+            return;
+        }
+
+        $id = $this->request->getPost('inputId');
+        $password = $this->request->getPost('inputPassword');
+
+        $user = Member::findFirstById($id);
+        if ($user) {
+            if ($this->security->checkHash($password, $user->password)) {
+                $this->session->set('id', $user->id);
+                $this->response->redirect("index");
+            } else {
+                $this->flash->error('Incorrect Credentials');
+                $this->response->redirect("loginout/login");
+            }
+        } else {
+            $this->flash->error('Incorrect Credentials');
+            $this->response->redirect("loginout/login");
+        }
     }
-    
+
 
     /**
      * 회원로그아웃
      */
-    public function logoutAction()
+    public function dologoutAction()
     {
-
+        $this->session->destroy();
+        $this->response->redirect("loginout/login");
     }
 
 }
