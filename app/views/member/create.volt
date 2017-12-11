@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="{{ url('member/doRegister') }}">
+<form class="form-horizontal" method="post" action="{{ url('member/save') }}">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
 
     <div class="form-group">

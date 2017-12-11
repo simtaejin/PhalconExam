@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="{{ url('member/doModify') }}">
+<form class="form-horizontal" method="post" action="{{ url('member/update') }}">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
     <?php echo $this->tag->hiddenField("id") ?>
 

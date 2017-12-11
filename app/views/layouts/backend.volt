@@ -31,10 +31,10 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if !userId  %}
                 <li><a href="<?= $this->url->get('loginout/login') ?>">로그인</a></li>
-                <li><a href="<?= $this->url->get('member/register') ?>">회원가입</a></li>
+                <li><a href="<?= $this->url->get('member/create') ?>">회원가입</a></li>
                 {% else %}
                 <li><a href="<?= $this->url->get('loginout/dologout') ?>">로그아웃</a></li>
-                <li><a href="<?= $this->url->get('member/modify/') ?>{{ userId }}">정보수정</a></li>
+                <li><a href="<?= $this->url->get('member/edit/') ?>{{ userId }}">정보수정</a></li>
                 {% endif %}
 
             </ul>

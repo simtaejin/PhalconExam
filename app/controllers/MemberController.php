@@ -20,7 +20,7 @@ class MemberController extends ControllerBase
     /**
      * 회원등록 페이지
      */
-    public function RegisterAction()
+    public function createAction()
     {
 
     }
@@ -28,11 +28,11 @@ class MemberController extends ControllerBase
     /**
      * 회원등록
      */
-    public function doRegisterAction()
+    public function saveAction()
     {
         if ($this->security->checkToken() == false) {
             $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect("member/register");
+            $this->response->redirect("member/create");
             return;
         }
 
@@ -64,7 +64,7 @@ class MemberController extends ControllerBase
 
     }
 
-    public function ModifyAction($id)
+    public function editAction($id)
     {
         $user = Member::findFirstById($id);
 
@@ -73,15 +73,15 @@ class MemberController extends ControllerBase
         $this->view->setVar("email", $user->email);
     }
 
-    public function doModifyAction()
+    public function updateAction()
     {
 
-//        if ($this->security->checkToken() == false) {
-//            $this->flash->error('Invalid CSRF Token');
-//            $this->response->redirect("member/modify/".$this->request->getPost("id"));
-//
-//            return;
-//        }
+        if ($this->security->checkToken() == false) {
+            $this->flash->error('Invalid CSRF Token');
+            $this->response->redirect("member/modify/".$this->request->getPost("id"));
+
+            return;
+        }
 
         $this->view->disable();
 
