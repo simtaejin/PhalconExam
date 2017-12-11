@@ -4,12 +4,25 @@ class MemberController extends ControllerBase
 {
     public function initialize()
     {
+//        if (!$this->session->get("id")) {
+//            $this->response->redirect("loginout/login");
+//        }
+        $this->view->setVar("userId", $this->session->get("id"));
+
         $this->view->setTemplateAfter('backend');
     }
 
     public function indexAction()
     {
         $this->persistent->parameters = null;
+    }
+
+    /**
+     * 회원등록 페이지
+     */
+    public function RegisterAction()
+    {
+
     }
 
     /**
@@ -35,7 +48,7 @@ class MemberController extends ControllerBase
 
         if (!$member->save()) {
             foreach ($member->getMessages() as $message) {
-                echo $message."<br>";
+                echo $message . "<br>";
             }
             return;
         }
@@ -51,5 +64,41 @@ class MemberController extends ControllerBase
 
     }
 
+    public function ModifyAction($id)
+    {
+        $user = Member::findFirstById($id);
+
+        $this->tag->setDefault("id", $user->id);
+        $this->view->setVar("id", $user->id);
+        $this->view->setVar("email", $user->email);
+    }
+
+    public function doModifyAction()
+    {
+
+//        if ($this->security->checkToken() == false) {
+//            $this->flash->error('Invalid CSRF Token');
+//            $this->response->redirect("member/modify/".$this->request->getPost("id"));
+//
+//            return;
+//        }
+
+        $this->view->disable();
+
+        $security = new \Phalcon\Security();
+
+        $member = Member::findFirstById($this->request->getPost("id"));
+        $member->password = $security->hash($this->request->getPost("password"));
+        $member->email = $this->request->getPost("email");
+
+        if (!$member->update()) {
+            foreach ($member->getMessages() as $message) {
+                echo $message . "<br>";
+            }
+            return;
+        }
+
+        exit;
+    }
 }
 

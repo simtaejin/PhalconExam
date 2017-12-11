@@ -34,7 +34,7 @@
                 <li><a href="<?= $this->url->get('member/register') ?>">회원가입</a></li>
                 {% else %}
                 <li><a href="<?= $this->url->get('loginout/dologout') ?>">로그아웃</a></li>
-                <li><a href="">정보수정</a></li>
+                <li><a href="<?= $this->url->get('member/modify/') ?>{{ userId }}">정보수정</a></li>
                 {% endif %}
 
             </ul>
