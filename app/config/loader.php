@@ -11,3 +11,11 @@ $loader->registerDirs(
         $config->application->modelsDir
     ]
 )->register();
+
+$loader->registerClasses(
+    [
+        'Component\Helper' => APP_PATH.'/components/Helper.php'
+    ]
+)->register();
+
+

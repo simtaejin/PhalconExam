@@ -30,13 +30,9 @@ class MemberController extends ControllerBase
      */
     public function saveAction()
     {
-        if ($this->security->checkToken() == false) {
-            $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect("member/create");
-            return;
-        }
-
         $this->view->disable();
+
+        $this->component->helper->csrf("member/create");
 
         $security = new \Phalcon\Security();
 
@@ -75,15 +71,9 @@ class MemberController extends ControllerBase
 
     public function updateAction()
     {
-
-        if ($this->security->checkToken() == false) {
-            $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect("member/modify/".$this->request->getPost("id"));
-
-            return;
-        }
-
         $this->view->disable();
+
+        $this->component->helper->csrf("member/modify/".$this->request->getPost("id"));
 
         $security = new \Phalcon\Security();
 

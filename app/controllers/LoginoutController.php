@@ -30,11 +30,7 @@ class LoginoutController extends ControllerBase
 
         $this->view->disable();
 
-        if ($this->security->checkToken() == false) {
-            $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect("loginout/login");
-            return;
-        }
+        $this->component->helper->csrf("loginout/login");
 
         $id = $this->request->getPost('inputId');
         $password = $this->request->getPost('inputPassword');

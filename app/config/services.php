@@ -110,3 +110,11 @@ $di->setShared('session', function () {
 
     return $session;
 });
+
+
+$di->setShared('component', function () {
+    $obj = new stdClass();
+    $obj->helper = new \Component\Helper;
+
+    return $obj;
+});
