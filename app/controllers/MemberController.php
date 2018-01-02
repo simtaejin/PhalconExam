@@ -1,4 +1,6 @@
 <?php
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class MemberController extends ControllerBase
 {
@@ -15,6 +17,26 @@ class MemberController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+
+
+        if (!$this->request->getQuery("page", "int")) {
+            $numberPage = 1;
+        } else {
+            $numberPage = $this->request->getQuery("page", "int");
+        }
+
+        $parameters["order"] = "id";
+
+        $user = User::find($parameters);
+
+        $paginator = new Paginator([
+            'data' => $user,
+            'limit'=> 10,
+            'page' => $numberPage
+        ]);
+
+        $this->view->page = $paginator->getPaginate();
+
     }
 
     /**

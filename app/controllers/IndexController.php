@@ -9,9 +9,9 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-//        if (!$this->session->get("id")) {
-//            $this->response->redirect("loginout/login");
-//        }
+        if (!$this->session->get("id")) {
+            $this->response->redirect("loginout/login");
+        }
         $this->view->setVar("userId", $this->session->get("id"));
 
     }
