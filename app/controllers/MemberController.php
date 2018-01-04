@@ -1,4 +1,5 @@
 <?php
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -26,91 +27,88 @@ class MemberController extends ControllerBase
         }
 
         $parameters["order"] = "id";
-
-        $user = User::find($parameters);
+        $user = Member::find($parameters);
 
         $paginator = new Paginator([
             'data' => $user,
-            'limit'=> 10,
+            'limit' => 10,
             'page' => $numberPage
         ]);
 
         $this->view->page = $paginator->getPaginate();
-
     }
 
     /**
-     * 회원등록 페이지
+     * 회원 등록
      */
-    public function createAction()
+    public function newAction()
     {
+        if ($this->request->isPost()) {
+            $this->view->disable();
 
-    }
+            $this->component->helper->csrf("member/create");
 
-    /**
-     * 회원등록
-     */
-    public function saveAction()
-    {
-        $this->view->disable();
+            $security = new \Phalcon\Security();
 
-        $this->component->helper->csrf("member/create");
+            $member = new Member();
+            $member->id = $this->request->getPost("id");
+            $member->password = $security->hash($this->request->getPost("password"));
+            $member->email = $this->request->getPost("email");
+            $member->created = date('Y-m-d H:i:s');
 
-        $security = new \Phalcon\Security();
-
-        $member = new Member();
-        $member->id = $this->request->getPost("id");
-        $member->password = $security->hash($this->request->getPost("password"));
-        $member->email = $this->request->getPost("email");
-        $member->created = date('Y-m-d H:i:s');
-
-        if (!$member->save()) {
-            foreach ($member->getMessages() as $message) {
-                echo $message . "<br>";
+            if (!$member->create()) {
+                foreach ($member->getMessages() as $message) {
+                    echo $message . "<br>";
+                }
+                return;
             }
-            return;
-        }
 
-        exit;
+            exit;
+        }
     }
 
     /**
-     * 회원삭제
+     * 회원 수정
+     * @param $id
      */
-    public function deRegisterAction()
-    {
-
-    }
-
     public function editAction($id)
     {
-        $user = Member::findFirstById($id);
+        if ($this->request->isPost()) {
+            $this->view->disable();
 
-        $this->tag->setDefault("id", $user->id);
-        $this->view->setVar("id", $user->id);
-        $this->view->setVar("email", $user->email);
+            $this->component->helper->csrf("member/modify/" . $this->request->getPost("id"));
+
+            $security = new \Phalcon\Security();
+
+            $member = Member::findFirstById($this->request->getPost("id"));
+            $member->password = $security->hash($this->request->getPost("password"));
+            $member->email = $this->request->getPost("email");
+
+            if (!$member->update()) {
+                foreach ($member->getMessages() as $message) {
+                    echo $message . "<br>";
+                }
+                return;
+            }
+
+            exit;
+        } else {
+            $user = Member::findFirstById($id);
+
+            $this->tag->setDefault("id", $user->id);
+            $this->view->setVar("id", $user->id);
+            $this->view->setVar("email", $user->email);
+        }
     }
 
-    public function updateAction()
+    /**
+     * 회원 삭제
+     * @param $id
+     */
+    public function deleteAction($id)
     {
-        $this->view->disable();
-
-        $this->component->helper->csrf("member/modify/".$this->request->getPost("id"));
-
-        $security = new \Phalcon\Security();
-
-        $member = Member::findFirstById($this->request->getPost("id"));
-        $member->password = $security->hash($this->request->getPost("password"));
-        $member->email = $this->request->getPost("email");
-
-        if (!$member->update()) {
-            foreach ($member->getMessages() as $message) {
-                echo $message . "<br>";
-            }
-            return;
-        }
-
-        exit;
+        $user = Member::findFirstByid($id);
+        $user->delete();
     }
 }
 

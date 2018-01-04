@@ -16,7 +16,7 @@
             <th>Role</th>
 
             <th>Created</th>
-            <th>Updated</th>
+
 
             <th></th>
             <th></th>
@@ -30,11 +30,11 @@
 
                 <td><?php echo $user->role ?></td>
 
-                <td><?php echo $user->created_at ?></td>
-                <td><?php echo $user->updated_at ?></td>
+                <td><?php echo $user->created ?></td>
 
-                <td><?php echo $this->tag->linkTo(["user/edit/" . $user->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["user/delete/" . $user->id, "Delete"]); ?></td>
+
+                <td><?php echo $this->tag->linkTo(["member/edit/" . $user->id, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["member/delete/" . $user->id, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -50,10 +50,10 @@
     <div class="col-sm-11">
         <nav>
             <ul class="pagination">
-                <li><?php echo $this->tag->linkTo("user/search", "First") ?></li>
-                <li><?php echo $this->tag->linkTo("user/search?page=" . $page->before, "Previous") ?></li>
-                <li><?php echo $this->tag->linkTo("user/search?page=" . $page->next, "Next") ?></li>
-                <li><?php echo $this->tag->linkTo("user/search?page=" . $page->last, "Last") ?></li>
+                <li><?php echo $this->tag->linkTo("member/", "First") ?></li>
+                <li><?php echo $this->tag->linkTo("member/?page=" . $page->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("member/?page=" . $page->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("member/?page=" . $page->last, "Last") ?></li>
             </ul>
         </nav>
     </div>
