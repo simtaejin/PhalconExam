@@ -7,12 +7,32 @@ class Helper extends \Phalcon\Mvc\User\Component
     public function csrf($redirect = false)
     {
         if ($this->security->checkToken() == false) {
-            $this->flash->error('Invalid CSRF Token');
+            /*$this->flash->error('Invalid CSRF Token');
             if ($redirect) {
                 $this->response->redirect($redirect);
-            }
+            }*/
+            $this->alert("Invalid CSRF Token", $redirect);
 
             return false;
         }
+    }
+
+    public function alert($message, $redirect = "")
+    {
+        if (!$message) $message = "메세지를 입력 하세요.";
+
+        if ($redirect) {
+            $url = "location.href='" . $redirect . "';";
+        }
+
+        $heredoc = <<< HERE
+        <script type="text/javascript">
+            alert('$message');
+            $url
+         </script>
+HERE;
+        echo $heredoc;
+
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 # DID
   - 회원테이블 정리 (member or admin)
      -> member table ( role 추가) 
+  - alert 추가
 
 # TODO
  - 상단 메뉴 정리

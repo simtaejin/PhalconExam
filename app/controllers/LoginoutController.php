@@ -30,7 +30,7 @@ class LoginoutController extends ControllerBase
 
         $this->view->disable();
 
-        $this->component->helper->csrf("loginout/login");
+        $this->component->helper->csrf("/loginout/login");
 
         $id = $this->request->getPost('inputId');
         $password = $this->request->getPost('inputPassword');
@@ -41,12 +41,10 @@ class LoginoutController extends ControllerBase
                 $this->session->set('id', $user->id);
                 $this->response->redirect("index");
             } else {
-                $this->flash->error('Incorrect Credentials');
-                $this->response->redirect("loginout/login");
+                $this->component->helper->alert("패스워드를 확인 하세요.", "/loginout/login");
             }
         } else {
-            $this->flash->error('Incorrect Credentials');
-            $this->response->redirect("loginout/login");
+            $this->component->helper->alert("아이디 또는 패스워드를 확인 하세요.", "/loginout/login");
         }
     }
 
