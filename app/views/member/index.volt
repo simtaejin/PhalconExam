@@ -5,7 +5,7 @@
 </div>
 
 <?php echo $this->getContent(); ?>
-
+<?php echo $this->tag->linkTo(["member/new/", "추가"]); ?>
 <div class="row">
     <table class="table table-bordered">
         <thead>
@@ -33,8 +33,8 @@
                 <td><?php echo $user->created ?></td>
 
 
-                <td><?php echo $this->tag->linkTo(["member/edit/" . $user->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["member/delete/" . $user->id, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["member/edit/" . $user->id, "수정"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["member/delete/" . $user->id, "삭제"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -55,6 +55,7 @@
                 <li><?php echo $this->tag->linkTo("member/?page=" . $page->next, "Next") ?></li>
                 <li><?php echo $this->tag->linkTo("member/?page=" . $page->last, "Last") ?></li>
             </ul>
+
         </nav>
     </div>
 </div>
