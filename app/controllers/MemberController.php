@@ -46,16 +46,14 @@ class MemberController extends ControllerBase
         if ($this->request->isPost()) {
             $this->view->disable();
 
-            $this->component->helper->csrf("member/create");
-
-            $security = new \Phalcon\Security();
+            $this->component->helper->csrf("/member/create");
 
             $member = new Member();
             $member->id = $this->request->getPost("id");
-            $member->password = $security->hash($this->request->getPost("password"));
+            $member->password = $this->request->getPost("password");
             $member->email = $this->request->getPost("email");
-            $member->created = date('Y-m-d H:i:s');
 
+            //var_dump($member->dump()) ;
             if (!$member->create()) {
                 foreach ($member->getMessages() as $message) {
                     echo $message . "<br>";
@@ -76,12 +74,10 @@ class MemberController extends ControllerBase
         if ($this->request->isPost()) {
             $this->view->disable();
 
-            $this->component->helper->csrf("member/modify/" . $this->request->getPost("id"));
-
-            $security = new \Phalcon\Security();
+            $this->component->helper->csrf("/member/modify/" . $this->request->getPost("id"));
 
             $member = Member::findFirstById($this->request->getPost("id"));
-            $member->password = $security->hash($this->request->getPost("password"));
+            $member->password = $this->request->getPost("password");
             $member->email = $this->request->getPost("email");
 
             if (!$member->update()) {

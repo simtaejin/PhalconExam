@@ -35,10 +35,14 @@ class LoginoutController extends ControllerBase
         $id = $this->request->getPost('inputId');
         $password = $this->request->getPost('inputPassword');
 
-        $user = Member::findFirstById($id);
-        if ($user) {
-            if ($this->security->checkHash($password, $user->password)) {
-                $this->session->set('id', $user->id);
+        $member = Member::findFirstById($id);
+        if ($member) {
+            if ($this->security->checkHash($password, $member->password)) {
+
+                $login = Loginout::findFirstById($id);
+                $login->update();
+
+                $this->session->set('id', $member->id);
                 $this->response->redirect("index");
             } else {
                 $this->component->helper->alert("패스워드를 확인 하세요.", "/loginout/login");
