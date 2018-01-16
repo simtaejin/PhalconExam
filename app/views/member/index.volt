@@ -12,12 +12,9 @@
         <tr>
             <th>Id</th>
             <th>Email</th>
-
             <th>Role</th>
-
             <th>Created</th>
-
-
+            <th>Updated</th>
             <th></th>
             <th></th>
         </tr>
@@ -27,12 +24,9 @@
             <tr>
                 <td><?php echo $user->id ?></td>
                 <td><?php echo $user->email ?></td>
-
                 <td><?php echo $user->role ?></td>
-
                 <td><?php echo $user->created ?></td>
-
-
+                <td><?php echo $user->updated ?></td>
                 <td><?php echo $this->tag->linkTo(["member/edit/" . $user->id, "수정"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["member/delete/" . $user->id, "삭제"]); ?></td>
             </tr>
@@ -55,7 +49,6 @@
                 <li><?php echo $this->tag->linkTo("member/?page=" . $page->next, "Next") ?></li>
                 <li><?php echo $this->tag->linkTo("member/?page=" . $page->last, "Last") ?></li>
             </ul>
-
         </nav>
     </div>
 </div>
