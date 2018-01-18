@@ -13,8 +13,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="<?= $this->url->get('/index') ?>">Home</a></li>
-                <li><a href="<?= $this->url->get('member/') ?>">회원정보</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="<?= $this->url->get('member/') ?>">회원</a></li>
+                <li><a href="<?= $this->url->get('board/') ?>">게시판</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">

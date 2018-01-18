@@ -48,6 +48,8 @@ class MemberController extends ControllerBase
 
             $this->component->helper->csrf("member/create");
 
+            $security = new \Phalcon\Security();
+
             $temp =  Member::findFirstById($this->request->getPost("id"));
             if ($temp) {
                 echo "이미 있는 ID 입니다.";
@@ -56,7 +58,7 @@ class MemberController extends ControllerBase
 
             $member = new Member();
             $member->id = $this->request->getPost("id");
-            $member->password = $this->request->getPost("password");
+            $member->password = $security->hash($this->request->getPost("password"));
             $member->email = $this->request->getPost("email");
             $member->created = date('Y-m-d H:i:s');
 
@@ -82,8 +84,10 @@ class MemberController extends ControllerBase
 
             $this->component->helper->csrf("member/modify/" . $this->request->getPost("id"));
 
+            $security = new \Phalcon\Security();
+
             $member = Member::findFirstById($this->request->getPost("id"));
-            $member->password = $this->request->getPost("password");
+            $member->password = $security->hash($this->request->getPost("password"));
             $member->email = $this->request->getPost("email");
 
             if (!$member->update()) {
