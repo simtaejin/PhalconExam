@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 18-01-18 17:47
+-- 생성 시간: 18-01-19 17:49
 -- 서버 버전: 10.1.25-MariaDB
 -- PHP 버전: 5.6.31
 
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 -- 데이터베이스: `phalcon_exam`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `board`
+--
+
+CREATE TABLE `board` (
+  `idx` int(11) NOT NULL,
+  `member` varchar(50) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `hits` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -46,7 +62,7 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`idx`, `id`, `password`, `email`, `role`, `created`, `updated`, `login`) VALUES
 (1, 'fsdf', '$2y$08$UVIxQkpGLzVZNDU3WmFlM.j8TkRGx7hdtWq2KZgZKrlt.iLsxyZrW', 'fsdf', 'guest', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (4, 'fasdfdsf', '$2y$08$TUJ6dXhkVUJ4YXZ6MlJxLuj3v.JL0gQG3v0OZk5yZtyOrJ/NR4VW6', 'fasdfdsf@nate.com', 'guest', '0000-00-00 00:00:00', '2018-01-16 16:53:20', '0000-00-00 00:00:00'),
-(6, 'stj', '$2y$08$L3FTdU1KWE44a0IvQXdIM.Iez.A/zRVw2h.QQaO2jnjpuY7n7hTSm', 'stj53@nate.com', 'guest', '2017-12-07 10:21:03', '2018-01-13 06:40:49', '2018-01-18 17:38:58'),
+(6, 'stj', '$2y$08$L3FTdU1KWE44a0IvQXdIM.Iez.A/zRVw2h.QQaO2jnjpuY7n7hTSm', 'stj53@nate.com', 'guest', '2017-12-07 10:21:03', '2018-01-13 06:40:49', '2018-01-19 16:55:53'),
 (33, 'fasdf', '$2y$08$U1VwN0c5WFRPYnB0NTFlYuTYteU3ubwH8pFaE/k6nKV8F3I.CBW6e', 'fasdf@nate.com', 'guest', '2018-01-10 17:54:56', '2018-01-16 16:59:51', '2018-01-16 17:00:07'),
 (38, 'stjs', '$2y$08$dWZMbmszMThscHdSbFA2VOmdSC36olkvTNftwaePH1L1HXlvnoFKK', 'stj53@nate.com', 'guest', '2018-01-11 16:20:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (39, 'test0', '$2y$08$dWZMbmszMThscHdSbFA2VOmdSC36olkvTNftwaePH1L1HXlvnoFKK', 'test0@nate.com', 'guest', '2018-01-11 16:23:52', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
