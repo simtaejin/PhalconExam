@@ -1,11 +1,11 @@
 
-
 <div class="page-header">
     <h1>Member list</h1>
+    <p>
+        <?php echo $this->tag->linkTo(["member/new/", "추가"]); ?>
+    </p>
 </div>
 
-<?php echo $this->getContent(); ?>
-<?php echo $this->tag->linkTo(["member/new/", "추가"]); ?>
 <div class="row">
     <table class="table table-bordered">
         <thead>

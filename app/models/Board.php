@@ -1,5 +1,8 @@
 <?php
 
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
+
 class board extends \phalcon\mvc\model
 {
     public $idx;
@@ -14,6 +17,9 @@ class board extends \phalcon\mvc\model
     {
         $this->setschema("phalcon_exam");
         $this->setsource("board");
+
+        $this->allowEmptyStringValues(['title', 'content']);
+        //$this->skipAttributes(['idx']);
     }
 
     public function getsource()
@@ -31,4 +37,24 @@ class board extends \phalcon\mvc\model
         return parent::findfirst($parameters);
     }
 
+    public function beforeValidationOnCreate()
+    {
+        $this->created = date('Y-m-d H:i:s');
+    }
+
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(['title', 'content'], new PresenceOf([
+            'message' => [
+                'title' => 'title을 입력하세요.',
+                'content' => 'content을 입력하세요.'
+            ],
+        ]));
+
+        return $this->validate($validator);
+
+
+    }
 }

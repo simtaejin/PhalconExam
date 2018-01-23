@@ -1,5 +1,5 @@
 <?php
- 
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -52,7 +52,7 @@ class UserController extends ControllerBase
 
         $paginator = new Paginator([
             'data' => $user,
-            'limit'=> 10,
+            'limit' => 10,
             'page' => $numberPage
         ]);
 
@@ -97,7 +97,7 @@ class UserController extends ControllerBase
             $this->tag->setDefault("deleted", $user->deleted);
             $this->tag->setDefault("created_at", $user->created_at);
             $this->tag->setDefault("updated_at", $user->updated_at);
-            
+
         }
     }
 
@@ -122,7 +122,7 @@ class UserController extends ControllerBase
         $user->deleted = $this->request->getPost("deleted");
         $user->created_at = $this->request->getPost("created_at");
         $user->updated_at = $this->request->getPost("updated_at");
-        
+
 
         if (!$user->save()) {
             foreach ($user->getMessages() as $message) {
@@ -181,7 +181,7 @@ class UserController extends ControllerBase
         $user->deleted = $this->request->getPost("deleted");
         $user->created_at = $this->request->getPost("created_at");
         $user->updated_at = $this->request->getPost("updated_at");
-        
+
 
         if (!$user->save()) {
 
