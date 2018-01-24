@@ -81,7 +81,6 @@ $di->setShared('db', function () {
     return $connection;
 });
 
-
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */

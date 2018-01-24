@@ -17,6 +17,10 @@ class BoardController extends ControllerBase
 
     public function indexAction()
     {
+        echo $this->dispatcher->getParam('board_id')."<br>";
+        echo $this->dispatcher->getParam('id')."<br>";
+        //echo $this->dispatcher->getParam('board_id');
+        exit;
         $this->persistent->parameters = null;
 
         if (!$this->request->getQuery("page", "int")) {
