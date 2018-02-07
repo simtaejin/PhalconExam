@@ -17,12 +17,13 @@ class BoardController extends ControllerBase
 
     public function indexAction()
     {
-        echo $this->dispatcher->getParam('board_id')."<br>";
-        echo $this->dispatcher->getParam('id')."<br>";
-        //echo $this->dispatcher->getParam('board_id');
-        exit;
         $this->persistent->parameters = null;
 
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
+        $a = new Board("board");
+exit;
         if (!$this->request->getQuery("page", "int")) {
             $numberPage = 1;
         } else {
@@ -30,10 +31,11 @@ class BoardController extends ControllerBase
         }
 
         $parameters["order"] = "idx";
-        $baord = Board::find($parameters);
+        $board = Board::find($parameters);
+
 
         $paginator = new Paginator([
-            'data' => $baord,
+            'data' => $board,
             'limit' => 10,
             'page' => $numberPage
         ]);

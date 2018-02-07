@@ -9,10 +9,19 @@ $router->add('/board/{board_id}', [
     'action' => 'index'
 ]);
 
-$router->add('/board/{board_id}/{id}', [
+$router->add('/board/{board_id}/new/{idx}', [
     'controller' => 'board',
-    'action' => 'index'
+    'action' => 'new'
 ]);
 
+$router->add('/board/{board_id}/edit/{idx}', [
+    'controller' => 'board',
+    'action' => 'edit'
+]);
+
+$router->add('/board/{board_id}/delete/{idx}', [
+    'controller' => 'board',
+    'action' => 'delete'
+]);
 
 $router->handle();

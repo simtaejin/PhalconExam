@@ -15,11 +15,16 @@ class board extends \phalcon\mvc\model
 
     public function initialize()
     {
+
         $this->setschema("phalcon_exam");
-        $this->setsource("board");
+        //$this->setsource("board");
 
         $this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
+    }
+
+    public function onConstruct($table) {
+        $this->setSource($table);
     }
 
     public function getsource()
