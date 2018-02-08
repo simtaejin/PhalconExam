@@ -22,20 +22,20 @@ class BoardController extends ControllerBase
         $board_id = $this->dispatcher->getParam('board_id');
         $board_idx = $this->dispatcher->getParam('idx');
 
-        $a = new Board("board");
-exit;
+
         if (!$this->request->getQuery("page", "int")) {
             $numberPage = 1;
         } else {
             $numberPage = $this->request->getQuery("page", "int");
         }
-
         $parameters["order"] = "idx";
-        $board = Board::find($parameters);
 
+        $board = new Board();
+        $board->setSource($board_id);
+        $board_data  = $board->find($parameters);
 
         $paginator = new Paginator([
-            'data' => $board,
+            'data' => $board_data,
             'limit' => 10,
             'page' => $numberPage
         ]);
