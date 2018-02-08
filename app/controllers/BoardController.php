@@ -17,23 +17,25 @@ class BoardController extends ControllerBase
 
     public function indexAction()
     {
-        echo $this->dispatcher->getParam('board_id')."<br>";
-        echo $this->dispatcher->getParam('id')."<br>";
-        //echo $this->dispatcher->getParam('board_id');
-
         $this->persistent->parameters = null;
+
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
 
         if (!$this->request->getQuery("page", "int")) {
             $numberPage = 1;
         } else {
             $numberPage = $this->request->getQuery("page", "int");
         }
-
         $parameters["order"] = "idx";
-        $baord = Board::find($parameters);
+
+        $board = new Board();
+        $board->setSource($board_id);
+        $board_data  = $board->find($parameters);
 
         $paginator = new Paginator([
-            'data' => $baord,
+            'data' => $board_data,
             'limit' => 10,
             'page' => $numberPage
         ]);
