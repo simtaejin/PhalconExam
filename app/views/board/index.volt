@@ -1,8 +1,8 @@
 
 <div class="page-header">
-    <h1>Board list</h1>
+    <h1>{{ board_id }} list</h1>
     <p>
-        <?php echo $this->tag->linkTo(["board/new/", "추가"]); ?>
+        <?php echo $this->tag->linkTo(["board/".$board_id."/new/", "추가"]); ?>
     </p>
 </div>
 
@@ -19,14 +19,14 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $baord): ?>
+        <?php foreach ($page->items as $board): ?>
             <tr>
                 <td></td>
-                <td><?php echo $baord->title ?></td>
-                <td><?php echo $baord->member ?></td>
-                <td><?php echo $baord->created ?></td>
-                <td><?php echo $this->tag->linkTo(["board/edit/" . $baord->idx, "수정"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["board/delete/" . $baord->idx, "삭제"]); ?></td>
+                <td><?php echo $board->title ?></td>
+                <td><?php echo $board->member ?></td>
+                <td><?php echo $board->created ?></td>
+                <td><?php echo $this->tag->linkTo(["board/".$board_id."/edit/".$board->idx, "수정"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["board/".$board_id."/delete/". $board->idx, "삭제"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -42,10 +42,10 @@
     <div class="col-sm-11">
         <nav>
             <ul class="pagination">
-                <li><?php echo $this->tag->linkTo("board/", "First") ?></li>
-                <li><?php echo $this->tag->linkTo("board/?page=" . $page->before, "Previous") ?></li>
-                <li><?php echo $this->tag->linkTo("board/?page=" . $page->next, "Next") ?></li>
-                <li><?php echo $this->tag->linkTo("board/?page=" . $page->last, "Last") ?></li>
+                <li><?php echo $this->tag->linkTo("board/".$board_id."/" ,"First") ?></li>
+                <li><?php echo $this->tag->linkTo("board/".$board_id."/".$page->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("board/".$board_id."/".$page->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("board/".$board_id."/".$page->last, "Last") ?></li>
             </ul>
         </nav>
     </div>

@@ -32,7 +32,7 @@ class BoardController extends ControllerBase
 
         $board = new Board();
         $board->setSource($board_id);
-        $board_data  = $board->find($parameters);
+        $board_data = $board->find($parameters);
 
         $paginator = new Paginator([
             'data' => $board_data,
@@ -40,18 +40,24 @@ class BoardController extends ControllerBase
             'page' => $numberPage
         ]);
 
+        $this->view->setVar('board_id', $board_id);
         $this->view->page = $paginator->getPaginate();
 
     }
 
     public function newAction()
     {
+        $board_id = $this->dispatcher->getParam('board_id');
+
+        $this->view->setVar('board_id', $board_id);
+
         if ($this->request->isPost()) {
             $this->view->disable();
 
             $this->component->helper->csrf("board/create");
 
             $board = new Board();
+            $board->setSource($board_id);
             $board->title = $this->request->getPost("title");
             $board->content = $this->request->getPost("content");
             $board->member = $this->session->get("id");
@@ -68,5 +74,8 @@ class BoardController extends ControllerBase
         }
     }
 
+    public function editAction()
+    {
 
+    }
 }

@@ -4,12 +4,12 @@ $router = $di->getRouter();
 
 // Define your routes here
 
-$router->add('/board/{board_id}', [
+$router->add('/board/{board_id}/{page}', [
     'controller' => 'board',
     'action' => 'index'
 ]);
 
-$router->add('/board/{board_id}/new/{idx}', [
+$router->add('/board/{board_id}/new/', [
     'controller' => 'board',
     'action' => 'new'
 ]);

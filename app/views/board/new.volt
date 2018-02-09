@@ -5,8 +5,9 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="{{ url('board/new') }}">
+<form class="form-horizontal" method="post" action="/board/{{ board_id }}/new/">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
+    <input type="hidden" name="board_id" value="{{ board_id }}">
 
     <div class="form-group">
         <label for="fieldTITLE" class="col-sm-2 control-label">TITLE</label>
