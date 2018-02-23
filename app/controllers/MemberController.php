@@ -38,6 +38,15 @@ class MemberController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
+    public function selectAction($id) {
+        $user = Member::findFirstById($id);
+
+        $this->tag->setDefault("id", $user->id);
+        $this->view->setVar("id", $user->id);
+        $this->view->setVar("email", $user->email);
+    }
+
+
     /**
      * 회원 등록
      */
