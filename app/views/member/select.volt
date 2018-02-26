@@ -5,9 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="{{ url('member/edit') }}/{{ id }}">
-    <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
-    <?php echo $this->tag->hiddenField("id") ?>
+<form class="form-horizontal" method="get" action="{{ url('member/edit') }}/{{ id }}">
 
     <div class="form-group">
         <label for="fieldID" class="col-sm-2 control-label">ID</label>

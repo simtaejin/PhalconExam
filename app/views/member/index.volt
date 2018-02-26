@@ -22,7 +22,7 @@
         <tbody>
         <?php foreach ($page->items as $user): ?>
             <tr>
-                <td><?php echo $user->id ?></td>
+                <td><?php echo $this->tag->linkTo(["member/select/" . $user->id,  $user->id]); ?></td>
                 <td><?php echo $user->email ?></td>
                 <td><?php echo $user->role ?></td>
                 <td><?php echo $user->created ?></td>
