@@ -50,7 +50,7 @@ class MemberController extends ControllerBase
     /**
      * 회원 등록
      */
-    public function newAction()
+    public function createAction()
     {
         if ($this->request->isPost()) {
             $this->view->disable();
@@ -84,12 +84,12 @@ class MemberController extends ControllerBase
      * 회원 수정
      * @param $id
      */
-    public function editAction($id)
+    public function updateAction($id)
     {
         if ($this->request->isPost()) {
             $this->view->disable();
 
-            $this->component->helper->csrf("member/modify/" . $this->request->getPost("id"));
+            $this->component->helper->csrf("member/update/" . $this->request->getPost("id"));
 
             $member = Member::findFirstById($this->request->getPost("id"));
             $member->password = $this->request->getPost("password");
