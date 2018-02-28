@@ -19,7 +19,6 @@ class MemberController extends ControllerBase
     {
         $this->persistent->parameters = null;
 
-
         if (!$this->request->getQuery("page", "int")) {
             $numberPage = 1;
         } else {
@@ -45,7 +44,6 @@ class MemberController extends ControllerBase
         $this->view->setVar("id", $user->id);
         $this->view->setVar("email", $user->email);
     }
-
 
     /**
      * 회원 등록
