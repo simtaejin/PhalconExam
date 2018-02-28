@@ -2,7 +2,7 @@
 <div class="page-header">
     <h1>Member list</h1>
     <p>
-        <?php echo $this->tag->linkTo(["member/new/", "추가"]); ?>
+        <?php echo $this->tag->linkTo(["member/create/", "추가"]); ?>
     </p>
 </div>
 
@@ -27,7 +27,7 @@
                 <td><?php echo $user->role ?></td>
                 <td><?php echo $user->created ?></td>
                 <td><?php echo $user->updated ?></td>
-                <td><?php echo $this->tag->linkTo(["member/edit/" . $user->id, "수정"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["member/update/" . $user->id, "수정"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["member/delete/" . $user->id, "삭제"]); ?></td>
             </tr>
         <?php endforeach; ?>
