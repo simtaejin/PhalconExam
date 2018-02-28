@@ -45,6 +45,7 @@ class MemberController extends ControllerBase
         $this->view->setVar("email", $user->email);
     }
 
+    
     /**
      * 회원 등록
      */
