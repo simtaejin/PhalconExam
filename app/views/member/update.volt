@@ -1,17 +1,18 @@
 
 <div class="page-header">
     <h1>
-        Create Member
+        Update Member
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="{{ url('member/new') }}">
+<form class="form-horizontal" method="post" action="{{ url('member/update') }}/{{ id }}">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
+    <?php echo $this->tag->hiddenField("id") ?>
 
     <div class="form-group">
         <label for="fieldID" class="col-sm-2 control-label">ID</label>
         <div class="col-sm-10">
-            <input type="text" name="id" id="fieldID" class="form-control" placeholder="ID" size="30" autofocus>
+            {{ id }}
         </div>
     </div>
 
@@ -25,10 +26,10 @@
     <div class="form-group">
         <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10">
-            <input type="text" name="email" id="fieldEmail" class="form-control" placeholder="Email" size="30">
+            <input type="text" name="email" id="fieldEmail" class="form-control" placeholder="Email" size="30" value="{{ email }}" >
         </div>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">회원 가입</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">회원 수정</button>
 
 </form>
 
