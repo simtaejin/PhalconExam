@@ -2,7 +2,7 @@
 <div class="page-header">
     <h1>{{ board_id }} list</h1>
     <p>
-        <?php echo $this->tag->linkTo(["board/".$board_id."/new/", "추가"]); ?>
+        <?php echo $this->tag->linkTo(["board/".$board_id."/create/", "추가"]); ?>
     </p>
 </div>
 
@@ -25,7 +25,7 @@
                 <td><?php echo $board->title ?></td>
                 <td><?php echo $board->member ?></td>
                 <td><?php echo $board->created ?></td>
-                <td><?php echo $this->tag->linkTo(["board/".$board_id."/edit/".$board->idx, "수정"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["board/".$board_id."/update/".$board->idx, "수정"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/delete/". $board->idx, "삭제"]); ?></td>
             </tr>
         <?php endforeach; ?>

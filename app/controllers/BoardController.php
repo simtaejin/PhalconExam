@@ -45,7 +45,7 @@ class BoardController extends ControllerBase
 
     }
 
-    public function newAction()
+    public function createAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
 
@@ -74,7 +74,12 @@ class BoardController extends ControllerBase
         }
     }
 
-    public function editAction()
+    public function selectAction()
+    {
+
+    }
+
+    public function updateAction()
     {
 
     }

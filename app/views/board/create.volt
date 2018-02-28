@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="/board/{{ board_id }}/new/">
+<form class="form-horizontal" method="post" action="/board/{{ board_id }}/create/">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
     <input type="hidden" name="board_id" value="{{ board_id }}">
 
