@@ -120,4 +120,3 @@ class MemberController extends ControllerBase
         $user->delete();
     }
 }
-
