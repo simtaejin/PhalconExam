@@ -37,6 +37,10 @@ class MemberController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
+    /**
+     * 회원 선택
+     * @param $id
+     */
     public function selectAction($id) {
         $user = Member::findFirstById($id);
 

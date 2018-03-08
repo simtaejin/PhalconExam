@@ -9,14 +9,24 @@ $router->add('/board/{board_id}/{page}', [
     'action' => 'index'
 ]);
 
-$router->add('/board/{board_id}/new/', [
+$router->add('/board/{board_id}/create/', [
     'controller' => 'board',
-    'action' => 'new'
+    'action' => 'create'
 ]);
 
-$router->add('/board/{board_id}/edit/{idx}', [
+$router->add('/board/{board_id}/create/', [
     'controller' => 'board',
-    'action' => 'edit'
+    'action' => 'create'
+]);
+
+$router->add('/board/{board_id}/select/{idx}', [
+    'controller' => 'board',
+    'action' => 'select'
+]);
+
+$router->add('/board/{board_id}/update/{idx}', [
+    'controller' => 'board',
+    'action' => 'update'
 ]);
 
 $router->add('/board/{board_id}/delete/{idx}', [

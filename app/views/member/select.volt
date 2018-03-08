@@ -1,11 +1,11 @@
 
 <div class="page-header">
     <h1>
-        Update Member
+        View Member
     </h1>
 </div>
 
-<form class="form-horizontal" method="get" action="{{ url('member/edit') }}/{{ id }}">
+<form class="form-horizontal" method="get" action="{{ url('member/update') }}/{{ id }}">
 
     <div class="form-group">
         <label for="fieldID" class="col-sm-2 control-label">ID</label>
@@ -13,8 +13,6 @@
             {{ id }}
         </div>
     </div>
-
-
 
     <div class="form-group">
         <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
