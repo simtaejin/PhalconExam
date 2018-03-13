@@ -13,7 +13,6 @@ class BoardController extends ControllerBase
         $this->view->setTemplateAfter('backend');
     }
 
-
     public function indexAction()
     {
         $this->persistent->parameters = null;

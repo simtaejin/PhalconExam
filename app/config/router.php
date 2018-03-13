@@ -4,6 +4,16 @@ $router = $di->getRouter();
 
 // Define your routes here
 
+
+$router->add('/setup/board/', [
+    'controller' => 'setup',
+    'action' => 'board'
+]);
+
+
+/**
+ * board 메뉴
+ */
 $router->add('/board/{board_id}/{page}', [
     'controller' => 'board',
     'action' => 'index'
