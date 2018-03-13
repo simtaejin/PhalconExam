@@ -5,7 +5,7 @@ $router = $di->getRouter();
 // Define your routes here
 
 
-$router->add('/setup/board/', [
+$router->add('/setup/board/{page}', [
     'controller' => 'setup',
     'action' => 'board'
 ]);

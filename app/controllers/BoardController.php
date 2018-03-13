@@ -20,12 +20,12 @@ class BoardController extends ControllerBase
         $board_id = $this->dispatcher->getParam('board_id');
         $board_idx = $this->dispatcher->getParam('idx');
 
-
-        if (!$this->request->getQuery("page", "int")) {
+        if (!$this->dispatcher->getParam('page')) {
             $numberPage = 1;
         } else {
-            $numberPage = $this->request->getQuery("page", "int");
+            $numberPage = $this->dispatcher->getParam('page');
         }
+
         $parameters["order"] = "idx";
 
         $board = new Board();
