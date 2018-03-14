@@ -26,7 +26,7 @@ class BoardController extends ControllerBase
             $numberPage = $this->dispatcher->getParam('page');
         }
 
-        $parameters["order"] = "idx";
+        $parameters["order"] = "idx desc";
 
         $board = new Board();
         $board->setSource($board_id);

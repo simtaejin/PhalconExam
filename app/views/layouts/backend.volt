@@ -20,9 +20,8 @@
                         <li role="separator" class="divider"></li>                    
                         <li><a href="#">회원 설정</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">게시판 설정</a></li>
-                        
-                    </ul>                    
+                        <li><a href="<?= $this->url->get('setup/board/') ?>">게시판 설정</a></li>
+                    </ul>
                 </li>
                 <li><a href="<?= $this->url->get('member/') ?>">회원</a></li>
                 <li><a href="<?= $this->url->get('board/board/') ?>">게시판</a></li>

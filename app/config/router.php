@@ -10,6 +10,10 @@ $router->add('/setup/board/{page}', [
     'action' => 'board'
 ]);
 
+$router->add('/setup/board/create/', [
+    'controller' => 'setup',
+    'action' => 'baord_create'
+]);
 
 /**
  * board 메뉴
@@ -24,10 +28,7 @@ $router->add('/board/{board_id}/create/', [
     'action' => 'create'
 ]);
 
-$router->add('/board/{board_id}/create/', [
-    'controller' => 'board',
-    'action' => 'create'
-]);
+
 
 $router->add('/board/{board_id}/select/{idx}', [
     'controller' => 'board',

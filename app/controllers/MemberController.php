@@ -25,7 +25,7 @@ class MemberController extends ControllerBase
             $numberPage = $this->request->getQuery("page", "int");
         }
 
-        $parameters["order"] = "id";
+        $parameters["order"] = "idx desc";
         $user = Member::find($parameters);
 
         $paginator = new Paginator([
