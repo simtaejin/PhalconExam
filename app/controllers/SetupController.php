@@ -45,12 +45,12 @@ class SetupController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
-    public function baord_createAction()
+    public function board_createAction()
     {
         if ($this->request->isPost()) {
             $this->view->disable();
 
-    //        $this->component->helper->csrf("setup/board/create");
+            $this->component->helper->csrf("setup/board/create/");
 
             $board = new SetupBoard();
             $board->setSource("board");
@@ -82,11 +82,46 @@ class SetupController extends ControllerBase
                             ]
                         ]
                     );
-
                 }
             }
 
             exit;
+        }
+    }
+
+    public function board_updateAction()
+    {
+
+        $idx = $this->dispatcher->getParam('idx');
+      
+        if ($this->request->isPost()) {
+            $this->view->disable();
+
+            $this->component->helper->csrf("setup/board/create/");
+
+            $sb = new SetupBoard();
+            $sb->setSource("board");
+            $sb_data = $sb->findFirstByIdx($this->request->getPost("idx"));
+      
+            $sb_data->id = $this->request->getPost("id");
+            $sb_data->name = $this->request->getPost("name");
+
+            if (!$sb_data->update()) {
+                foreach ($board->getMessages() as $message) {
+                    echo $message . "<br>";
+                }
+                return;
+            }
+
+            exit;
+        } else {
+            $sb = new SetupBoard();
+            $sb->setSource("board");
+            $sb_data = $sb->findFirstByIdx($idx);
+
+            $this->view->setVar("idx", $sb_data->idx);
+            $this->view->setVar("id", $sb_data->id);
+            $this->view->setVar("name", $sb_data->name);
         }
     }
 

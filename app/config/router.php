@@ -12,7 +12,12 @@ $router->add('/setup/board/{page}', [
 
 $router->add('/setup/board/create/', [
     'controller' => 'setup',
-    'action' => 'baord_create'
+    'action' => 'board_create'
+]);
+
+$router->add('/setup/board/update/{idx}', [
+    'controller' => 'setup',
+    'action' => 'board_update'
 ]);
 
 /**
