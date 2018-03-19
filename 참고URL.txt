@@ -30,3 +30,4 @@ view 참고
 
 
 https://docs.phalconphp.com/fr/3.2/db-layer
+https://olddocs.phalconphp.com/en/3.0.0/reference/applications.html

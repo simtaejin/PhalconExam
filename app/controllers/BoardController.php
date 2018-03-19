@@ -8,9 +8,9 @@ class BoardController extends ControllerBase
 
     public function initialize()
     {
-        $this->view->setVar("userId", $this->session->get("id"));
-
+        parent::initialize();
         $this->view->setTemplateAfter('backend');
+        $this->view->setVar("userId", $this->session->get("id"));
     }
 
     public function indexAction()

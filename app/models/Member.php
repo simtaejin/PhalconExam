@@ -32,16 +32,6 @@ class Member extends \Phalcon\Mvc\Model
         return 'member';
     }
 
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
     public function beforeValidationOnCreate()
     {
         $this->created = date('Y-m-d H:i:s');

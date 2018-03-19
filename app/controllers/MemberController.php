@@ -10,9 +10,9 @@ class MemberController extends ControllerBase
 //        if (!$this->session->get("id")) {
 //            $this->response->redirect("loginout/login");
 //        }
-        $this->view->setVar("userId", $this->session->get("id"));
-
+        parent::initialize();
         $this->view->setTemplateAfter('backend');
+        $this->view->setVar("userId", $this->session->get("id"));
     }
 
     public function indexAction()

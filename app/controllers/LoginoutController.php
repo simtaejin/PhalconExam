@@ -4,6 +4,7 @@ class LoginoutController extends ControllerBase
 {
     public function initialize()
     {
+        parent::initialize();
         $this->view->setTemplateAfter('backend');
     }
 

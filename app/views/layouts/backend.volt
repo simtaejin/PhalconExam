@@ -24,7 +24,15 @@
                     </ul>
                 </li>
                 <li><a href="<?= $this->url->get('member/') ?>">회원</a></li>
-                <li><a href="<?= $this->url->get('board/board/') ?>">게시판</a></li>
+                <!-- <li><a href="<?= $this->url->get('board/board/') ?>">게시판</a></li> -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">게시판 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for bbds in bbd %}
+                        <li><a href="/board/{{ bbds.id }}/">{{ bbds.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if !userId  %}
