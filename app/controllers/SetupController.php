@@ -91,7 +91,6 @@ class SetupController extends ControllerBase
 
     public function board_updateAction()
     {
-
         $idx = $this->dispatcher->getParam('idx');
       
         if ($this->request->isPost()) {
@@ -101,13 +100,13 @@ class SetupController extends ControllerBase
 
             $sb = new SetupBoard();
             $sb->setSource("board");
-            $sb_data = $sb->findFirstByIdx($this->request->getPost("idx"));
-      
-            $sb_data->id = $this->request->getPost("id");
+            $this->request->get('idx');
+            $sb_data = $sb->findFirstByIdx($idx);
+
             $sb_data->name = $this->request->getPost("name");
 
             if (!$sb_data->update()) {
-                foreach ($board->getMessages() as $message) {
+                foreach ($sb_data->getMessages() as $message) {
                     echo $message . "<br>";
                 }
                 return;
@@ -125,4 +124,16 @@ class SetupController extends ControllerBase
         }
     }
 
+    public function board_deleteAction()
+    {
+        $idx = $this->dispatcher->getParam('idx');
+
+        $sb = new SetupBoard();
+        $sb->setSource("board");
+        $sb_data = $sb->findFirstByIdx($idx);
+
+        if ($sb_data->delete()) {
+            $this->db->dropTable("board_".$sb_data->id);
+        }
+    }
 }

@@ -20,6 +20,11 @@ $router->add('/setup/board/update/{idx}', [
     'action' => 'board_update'
 ]);
 
+$router->add('/setup/board/delete/{idx}', [
+    'controller' => 'setup',
+    'action' => 'board_delete'
+]);
+
 /**
  * board 메뉴
  */
