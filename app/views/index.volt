@@ -14,7 +14,7 @@
     <link href="/public/third-party/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/public/third-party/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!--<link href="/public/third-party/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
     <link href="/public/third-party/navbar-fixed-top.css" rel="stylesheet">
@@ -42,6 +42,6 @@
 <script>window.jQuery || document.write('<script src="/public/third-party/jquery.min.js"><\/script>')</script>
 <script src="/public/third-party/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/public/third-party/js/ie10-viewport-bug-workaround.js"></script>
+<!--<script src="/public/third-party/js/ie10-viewport-bug-workaround.js"></script>-->
 </body>
 </html>

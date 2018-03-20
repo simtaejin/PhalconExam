@@ -5,7 +5,7 @@
         <?php echo $this->tag->linkTo(["board/".$board_id."/create/", "추가"]); ?>
     </p>
 </div>
-
+<?$page_num = $page->total_items + ($page->limit * (1-$page->current));?>
 <div class="row">
     <table class="table table-bordered">
         <thead>
@@ -19,9 +19,9 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $board): ?>
+        <?php foreach ($page->items as $v => $board): ?>
             <tr>
-                <td></td>
+                <td><?php echo $page_num - $v?></td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $board->title]);?></td>
                 <td><?php echo $board->member ?></td>
                 <td><?php echo $board->created ?></td>

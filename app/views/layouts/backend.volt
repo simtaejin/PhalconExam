@@ -1,5 +1,5 @@
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" >
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<?= $this->url->get('/index') ?>">Project name</a>
-        </div>
+        </div>     
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <!-- <li class="active dropdown"> -->
@@ -42,7 +42,6 @@
                 <li><a href="<?= $this->url->get('loginout/dologout') ?>">로그아웃</a></li>
                 <li><a href="<?= $this->url->get('member/update/') ?>{{ userId }}">정보수정</a></li>
                 {% endif %}
-
             </ul>
         </div><!--/.nav-collapse -->
     </div>
