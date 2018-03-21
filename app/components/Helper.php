@@ -35,4 +35,19 @@ HERE;
 
         return false;
     }
+
+    public function printr($arr)
+    {
+        
+        if (is_object($arr)) {          
+            var_dump($arr);
+        } else if (is_array($arr)) {
+            echo "<xmp>";
+            print_r($arr);
+            echo "</xmp>";
+        }
+       
+        return false;
+    }
+
 }
