@@ -24,3 +24,15 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 수정</button>
     <button class="btn btn-lg btn-primary btn-block" type="button" name="btn_reply" id="btn_reply">글 답글</button>
 </form>
+
+<script>
+
+    $(function() {
+        $('#btn_reply').click(function(){
+            $("[name='frm']").attr('action','/board/{{ board_id }}/refcreate/{{ board_idx }}');
+            $("[name='frm']").submit();
+        });
+    });
+
+
+</script>

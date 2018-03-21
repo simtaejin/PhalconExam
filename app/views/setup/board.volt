@@ -5,7 +5,7 @@
         <?php echo $this->tag->linkTo(["setup/board/create/", "추가"]); ?>
     </p>
 </div>
-<?$page_num = $page->total_items + ($page->limit * (1-$page->current));?>
+<?php $page_num = $page->total_items + ($page->limit * (1-$page->current));?>
 <div class="row">
     <table class="table table-bordered">
         <thead>
@@ -27,7 +27,7 @@
             <td><?php echo $sb_data->created ?></td>
             <td><?php echo $this->tag->linkTo(["setup/board/update/".$sb_data->idx, "수정"]); ?></td>
             <td><?php echo $this->tag->linkTo(["setup/board/delete/". $sb_data->idx, "삭제"]); ?></td>
-        </tr>            
+        </tr>
         <?php endforeach; ?>
         </tbody>
     </table>

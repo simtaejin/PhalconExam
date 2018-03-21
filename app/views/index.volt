@@ -10,6 +10,15 @@
 
     <title>Fixed Top Navbar Example for Bootstrap</title>
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/public/third-party/jquery.min.js"><\/script>')</script>
+    <script src="/public/third-party/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="/public/third-party/js/ie10-viewport-bug-workaround.js"></script>-->
+
     <!-- Bootstrap core CSS -->
     <link href="/public/third-party/css/bootstrap.min.css" rel="stylesheet">
 
@@ -35,13 +44,6 @@
 
 {{ content() }}
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/public/third-party/jquery.min.js"><\/script>')</script>
-<script src="/public/third-party/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<!--<script src="/public/third-party/js/ie10-viewport-bug-workaround.js"></script>-->
+
 </body>
 </html>

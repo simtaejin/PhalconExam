@@ -66,6 +66,9 @@ class BoardController extends ControllerBase
             $board->content = $this->request->getPost("content");
             $board->member = $this->session->get("id");
             $board->hits = 0;
+            $board->ref_group = 0;
+            $board->ref_level = 0;
+            $board->ref_order = 0;
 
             if (!$board->create()) {
                 foreach ($board->getMessages() as $message) {
