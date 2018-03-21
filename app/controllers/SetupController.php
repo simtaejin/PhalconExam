@@ -14,7 +14,6 @@ class SetupController extends ControllerBase
         $this->view->setVar("userId", $this->session->get("id"));
     }
 
-
     public function indexAction()
     {
      
@@ -73,6 +72,9 @@ class SetupController extends ControllerBase
                         [
                             'columns' => [
                                 new Column('idx',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'autoIncrement' => true,'primary'=> true,]),
+                                new Column('ref_group',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),
+                                new Column('ref_level',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),
+                                new Column('ref_order',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),                                
                                 new Column('member',['type'=> Column::TYPE_VARCHAR,'size'=> 50,'notNull' => true,]),
                                 new Column('title',['type'=> Column::TYPE_VARCHAR,'size'=> 255,'notNull' => true,]),
                                 new Column('content',['type'=> Column::TYPE_TEXT,]),
