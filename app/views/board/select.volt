@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="get" action="/board/{{ board_id }}/update/{{ board_idx }}">
+<form name="frm" class="form-horizontal" method="get" action="/board/{{ board_id }}/update/{{ board_idx }}">
 
     <div class="form-group">
         <label for="fieldTITLE" class="col-sm-2 control-label">TITLE</label>
@@ -22,5 +22,5 @@
         </div>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 수정</button>
-
+    <button class="btn btn-lg btn-primary btn-block" type="button" name="btn_reply" id="btn_reply">글 답글</button>
 </form>

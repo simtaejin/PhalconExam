@@ -31,3 +31,8 @@ view 참고
 
 https://docs.phalconphp.com/fr/3.2/db-layer
 https://olddocs.phalconphp.com/en/3.0.0/reference/applications.html
+
+
+http://blog.naver.com/PostView.nhn?blogId=cme1245&logNo=221213702419
+http://blog.naver.com/PostView.nhn?blogId=choiye84&logNo=130090727737
+http://blog.naver.com/PostView.nhn?blogId=vicess&logNo=80048249549

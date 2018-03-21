@@ -150,4 +150,16 @@ class BoardController extends ControllerBase
         $this->component->helper->alert("회원 삭제 되었습니다.", "/board/".$board_id."/");
            
     }
+
+    public function refcreateAction()
+    {
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
+        $this->view->setVar('board_id', $board_id);
+
+        if ($this->request->isPost()) {
+            $this->view->disable();
+        }
+    }
 }
