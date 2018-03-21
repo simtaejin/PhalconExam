@@ -26,10 +26,10 @@ class MemberController extends ControllerBase
         }
 
         $parameters["order"] = "idx desc";
-        $user = Member::find($parameters);
+        $member = Member::find($parameters);
 
         $paginator = new Paginator([
-            'data' => $user,
+            'data' => $member,
             'limit' => 10,
             'page' => $numberPage
         ]);
@@ -42,11 +42,11 @@ class MemberController extends ControllerBase
      * @param $id
      */
     public function selectAction($id) {
-        $user = Member::findFirstById($id);
+        $member = Member::findFirstById($id);
 
-        $this->tag->setDefault("id", $user->id);
-        $this->view->setVar("id", $user->id);
-        $this->view->setVar("email", $user->email);
+        $this->tag->setDefault("id", $member->id);
+        $this->view->setVar("id", $member->id);
+        $this->view->setVar("email", $member->email);
     }
 
     /**
@@ -61,8 +61,7 @@ class MemberController extends ControllerBase
 
             $temp =  Member::findFirstById($this->request->getPost("id"));
             if ($temp) {
-                echo "이미 있는 ID 입니다.";
-                exit;
+                $this->component->helper->alert("이미 있는 ID 입니다.", "/member/");
             }
 
             $member = new Member();
@@ -78,7 +77,7 @@ class MemberController extends ControllerBase
                 return;
             }
 
-            exit;
+            $this->component->helper->alert("회원 등록 되었습니다.", "/member/");
         }
     }
 
@@ -104,13 +103,13 @@ class MemberController extends ControllerBase
                 return;
             }
 
-            exit;
+            $this->component->helper->alert("회원 수정 되었습니다.", "/member/select/".$id);
         } else {
-            $user = Member::findFirstById($id);
+            $member = Member::findFirstById($id);
 
-            $this->tag->setDefault("id", $user->id);
-            $this->view->setVar("id", $user->id);
-            $this->view->setVar("email", $user->email);
+            $this->tag->setDefault("id", $member->id);
+            $this->view->setVar("id", $member->id);
+            $this->view->setVar("email", $member->email);
         }
     }
 
@@ -120,7 +119,15 @@ class MemberController extends ControllerBase
      */
     public function deleteAction($id)
     {
-        $user = Member::findFirstByid($id);
-        $user->delete();
+        $member = Member::findFirstByid($id);
+        
+        if (!$member->delete()) {
+            foreach ($member->getMessages() as $message) {
+                echo $message . "<br>";
+            }
+            return;
+        }
+
+        $this->component->helper->alert("회원 삭제 되었습니다.", "/member/");
     }
 }

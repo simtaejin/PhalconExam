@@ -74,7 +74,7 @@ class BoardController extends ControllerBase
                 return;
             }
 
-            exit;
+            $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");
         }
     }
 
@@ -116,7 +116,8 @@ class BoardController extends ControllerBase
                 return;
             }
 
-            exit;
+            $this->component->helper->alert("글 수정 되었습니다.", "/board/".$board_id."/select/".$board_idx);
+
         } else {
             $board = new Board();
             $board->setSource($board_id);
@@ -138,7 +139,15 @@ class BoardController extends ControllerBase
         $board = new Board();
         $board->setSource($board_id);
         $board_data = $board->findFirstByIdx($board_idx);
-        
-        $board_data->delete();
+
+        if (!$board_data->delete()) {
+            foreach ($board->getMessages() as $message) {
+                echo $message . "<br>";
+            }
+            return;
+        }
+
+        $this->component->helper->alert("회원 삭제 되었습니다.", "/board/".$board_id."/");
+           
     }
 }

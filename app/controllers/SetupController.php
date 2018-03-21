@@ -85,7 +85,7 @@ class SetupController extends ControllerBase
                 }
             }
 
-            exit;
+            $this->component->helper->alert("게시판이 등록 되었습니다.", "/setup/board/");
         }
     }
 
@@ -112,7 +112,8 @@ class SetupController extends ControllerBase
                 return;
             }
 
-            exit;
+            $this->component->helper->alert("게시판이 수정 되었습니다.", "/setup/board/update/".$idx);
+
         } else {
             $sb = new SetupBoard();
             $sb->setSource("board");
@@ -132,8 +133,15 @@ class SetupController extends ControllerBase
         $sb->setSource("board");
         $sb_data = $sb->findFirstByIdx($idx);
 
-        if ($sb_data->delete()) {
-            $this->db->dropTable("board_".$sb_data->id);
+
+        if (!$sb_data->delete()) {
+            foreach ($sb_data->getMessages() as $message) {
+                echo $message . "<br>";
+            }
+            return;
         }
+
+        $this->db->dropTable("board_".$sb_data->id);
+        $this->component->helper->alert("게시판이 삭제 되었습니다.", "/setup/board/");
     }
 }
