@@ -55,9 +55,9 @@ $router->add('/board/{board_id}/delete/{idx}', [
     'action' => 'delete'
 ]);
 
-$router->add('/board/{board_id}/refcreate/{idx}', [
+$router->add('/board/{board_id}/replycreate/{idx}', [
     'controller' => 'board',
-    'action' => 'refcreate'
+    'action' => 'replycreate'
 ]);
 
 $router->handle();

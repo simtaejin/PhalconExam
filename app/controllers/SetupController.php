@@ -72,13 +72,13 @@ class SetupController extends ControllerBase
                         [
                             'columns' => [
                                 new Column('idx',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'autoIncrement' => true,'primary'=> true,]),
-                                new Column('ref_group',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),
-                                new Column('ref_level',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),
-                                new Column('ref_order',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => null,]),                                
+                                new Column('ref_group',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => 0,]),
+                                new Column('ref_level',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => 0,]),
+                                new Column('ref_order',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => 0,]),                                
                                 new Column('member',['type'=> Column::TYPE_VARCHAR,'size'=> 50,'notNull' => true,]),
                                 new Column('title',['type'=> Column::TYPE_VARCHAR,'size'=> 255,'notNull' => true,]),
                                 new Column('content',['type'=> Column::TYPE_TEXT,]),
-                                new Column('hits',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> false,'default' => null,]),
+                                new Column('hits',['type'=> Column::TYPE_INTEGER,'size'=> 11,'notNull'=> true,'default' => 0,]),
                                 new Column('created',['type'=> Column::TYPE_DATETIME,'notNull'=> true,'default' => '0000-00-00 00:00:00',]),
                                 new Column('updated',['type'=> Column::TYPE_DATETIME,'notNull'=> true,'default' => '0000-00-00 00:00:00',]),
                             ]

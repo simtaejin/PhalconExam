@@ -7,12 +7,16 @@ class board extends ModelBase
 {
     public $table;
     public $idx;
+    public $ref_group;
+    public $ref_level;
+    public $ref_order;    
     public $member;
     public $title;
     public $content;
     public $hits;
     public $created;
     public $updated;
+    
 
     public function initialize()
     {

@@ -29,7 +29,7 @@
 
     $(function() {
         $('#btn_reply').click(function(){
-            $("[name='frm']").attr('action','/board/{{ board_id }}/refcreate/{{ board_idx }}');
+            $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
             $("[name='frm']").submit();
         });
     });

@@ -1,6 +1,8 @@
 <?php
 
+use Phalcon\Mvc\Model\Message;
 use Phalcon\Mvc\Model\Criteria;
+
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class BoardController extends ControllerBase
@@ -43,8 +45,6 @@ class BoardController extends ControllerBase
             'page' => $numberPage
         ]);
 
-
-
         $this->view->setVar('board_id', $board_id);
         $this->view->page = $paginator->getPaginate();
     }
@@ -65,16 +65,20 @@ class BoardController extends ControllerBase
             $board->title = $this->request->getPost("title");
             $board->content = $this->request->getPost("content");
             $board->member = $this->session->get("id");
-            $board->hits = 0;
-            $board->ref_group = 0;
-            $board->ref_level = 0;
-            $board->ref_order = 0;
 
             if (!$board->create()) {
                 foreach ($board->getMessages() as $message) {
                     echo $message . "<br>";
                 }
                 return;
+            } else {
+
+                $temp = new Board();
+                $temp->setSource($board_id);
+                $temp_data = $temp->findFirstByIdx($board->idx);
+
+                $temp_data->ref_group = $board->idx;
+                $temp_data->update();
             }
 
             $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");
@@ -153,8 +157,8 @@ class BoardController extends ControllerBase
         $this->component->helper->alert("회원 삭제 되었습니다.", "/board/".$board_id."/");
            
     }
-
-    public function refcreateAction()
+    
+    public function replycreateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
         $board_idx = $this->dispatcher->getParam('idx');
@@ -163,6 +167,37 @@ class BoardController extends ControllerBase
 
         if ($this->request->isPost()) {
             $this->view->disable();
+
+            $ref_group = $this->request->getPost("ref_group");
+            $ref_level = $this->request->getPost("ref_level");
+            $ref_order = $this->request->getPost("ref_order");
+
+            //$this->component->helper->csrf("board/replycreate");
+
+            $result = $this->db->execute(
+                "update board_".$board_id." set  ref_order = ref_order + 1 where ref_group = ? and ref_order > ?",
+                [$ref_group, $ref_order]
+            );
+
+            $ref_level = $ref_level+1;
+            $ref_order = $ref_order+1;
+
+
+            exit;
+        } else {
+            $board = new Board();
+            $board->setSource($board_id);
+            $board_data = $board->findFirstByIdx($board_idx);
+  
+            //$this->component->helper->printr($board_data);
+ 
+            $this->view->setVar("board_id", $board_id);
+            $this->view->setVar("board_idx", $board_idx);
+            $this->view->setVar("ref_group", $board_data->ref_group);
+            $this->view->setVar("ref_level", $board_data->ref_level);
+            $this->view->setVar("ref_order", $board_data->ref_order);
+            $this->view->setVar("title", $board_data->title);
+            $this->view->setVar("content", $board_data->content);            
         }
     }
 }
