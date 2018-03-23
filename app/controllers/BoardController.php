@@ -20,7 +20,6 @@ class BoardController extends ControllerBase
         $this->persistent->parameters = null;
 
         $board_id = $this->dispatcher->getParam('board_id');
-        $board_idx = $this->dispatcher->getParam('idx');
 
         if (!$this->dispatcher->getParam('page')) {
             $numberPage = 1;
@@ -28,12 +27,13 @@ class BoardController extends ControllerBase
             $numberPage = $this->dispatcher->getParam('page');
         }
 
-        $parameters["order"] = "idx desc";
+        $parameters["order"] = "ref_group desc, ref_order asc";
 
         try {
             $board = new Board();
             $board->setSource($board_id);
             $board_data = $board->find($parameters);
+
         } catch (Exception   $e) {
             $this->component->helper->alert("해당 게시판이 없습니다.", "/setup/board/");
             exit;
@@ -93,6 +93,15 @@ class BoardController extends ControllerBase
         $board = new Board();
         $board->setSource($board_id);
         $board_data = $board->findFirstByIdx($board_idx);
+
+        $sess = "sess_".$board_id."_".$board_idx;
+        if (!$this->session->has($sess)) {
+            $this->session->set($sess, $sess);
+            $result = $this->db->execute(
+                "update `board_".$board_id."` set  `hits` = `hits` + 1 where `idx` = ? ",
+                [$board_idx]
+            );
+        }
 
         $this->view->setVar("board_id", $board_id);
         $this->view->setVar("board_idx", $board_idx);
@@ -173,17 +182,34 @@ class BoardController extends ControllerBase
             $ref_order = $this->request->getPost("ref_order");
 
             //$this->component->helper->csrf("board/replycreate");
-
+    
             $result = $this->db->execute(
-                "update board_".$board_id." set  ref_order = ref_order + 1 where ref_group = ? and ref_order > ?",
+                "update `board_".$board_id."` set  `ref_order` = `ref_order` + 1 where `ref_group` = ? and `ref_order` > ?",
                 [$ref_group, $ref_order]
             );
 
-            $ref_level = $ref_level+1;
-            $ref_order = $ref_order+1;
+            $ref_level = $ref_level + 1;
+            $ref_order = $ref_order + 1;
 
+            $board = new Board();
+            $board->setSource($board_id);
 
-            exit;
+            $board->ref_group = $ref_group;
+            $board->ref_level = $ref_level;
+            $board->ref_order = $ref_order;
+            $board->title = $this->request->getPost("title");
+            $board->content = $this->request->getPost("content");
+            $board->member = $this->session->get("id");
+
+            if (!$board->create()) {
+                foreach ($board->getMessages() as $message) {
+                    echo $message . "<br>";
+                }
+                return;
+            }
+
+            $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");
+
         } else {
             $board = new Board();
             $board->setSource($board_id);

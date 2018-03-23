@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<form class="form-horizontal" method="post" action="/board/{{ board_id }}/replycreate/">
+<form class="form-horizontal" method="post" action="/board/{{ board_id }}/replycreate/{{ board_idx }}">
     <input type="hidden" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}">
     <input type="hidden" name="board_id" value="{{ board_id }}">
     <input type="hidden" name="ref_group" value="{{ ref_group }}">

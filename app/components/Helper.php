@@ -50,4 +50,13 @@ HERE;
         return false;
     }
 
+    public function dateformate($format = "Y-m-d H:i:s", $str)
+    {
+        $temp = "";
+        if ($str) {
+            $temp = date($format, strtotime($str));
+        }
+
+        return $temp;
+    }
 }

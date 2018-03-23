@@ -26,13 +26,10 @@
 </form>
 
 <script>
-
     $(function() {
         $('#btn_reply').click(function(){
             $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
             $("[name='frm']").submit();
         });
     });
-
-
 </script>
