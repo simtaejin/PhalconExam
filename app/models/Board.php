@@ -4,7 +4,7 @@ use Phalcon\Validation;
 use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
 use Phalcon\Mvc\Model\Behavior\Timestampable;
 
-class board extends ModelBase
+class Board extends ModelBase
 {
     public $table;
     public $idx;
@@ -21,13 +21,10 @@ class board extends ModelBase
 
     public function initialize()
     {
-
         $this->setschema("phalcon_exam");
 
         $this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
-
-
     }
 
 

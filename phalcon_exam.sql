@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 18-03-14 17:21
+-- 생성 시간: 18-03-24 16:54
 -- 서버 버전: 10.1.25-MariaDB
 -- PHP 버전: 5.6.31
 
@@ -38,25 +38,55 @@ CREATE TABLE `board` (
   `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- 테이블의 덤프 데이터 `board`
+-- 테이블 구조 `board_test`
 --
 
-INSERT INTO `board` (`idx`, `member`, `title`, `content`, `hits`, `created`, `updated`) VALUES
-(4, 'stj', 'a1111111111', 'b22222222222', 0, '2018-02-09 17:38:19', '0000-00-00 00:00:00'),
-(5, 'stj', 'bbbbbbbbb', '            ccccccccccc', 0, '2018-02-12 17:40:38', '0000-00-00 00:00:00'),
-(6, 'stj', 'fads', '           fsdf ', 0, '2018-03-13 17:33:12', '0000-00-00 00:00:00'),
-(7, 'stj', 'fadsf', '            fasdf', 0, '2018-03-13 17:33:20', '0000-00-00 00:00:00'),
-(8, 'stj', 'aaaaaaa', '        aafasdfsf    ', 0, '2018-03-13 17:33:23', '0000-00-00 00:00:00'),
-(9, 'stj', 'rrrrrrrrr', '         fadsfsf   ', 0, '2018-03-13 17:33:27', '0000-00-00 00:00:00'),
-(10, 'stj', 'vzxcvxv', '           vxcvzxv ', 0, '2018-03-13 17:33:37', '0000-00-00 00:00:00'),
-(11, 'stj', 'rwerw', 'rwerw            ', 0, '2018-03-13 17:33:40', '0000-00-00 00:00:00'),
-(12, 'stj', 'hfghfgh', '     fhdfghdf       ', 0, '2018-03-13 17:33:44', '0000-00-00 00:00:00'),
-(13, 'stj', 'erter', '   tertertw         ', 0, '2018-03-13 17:33:48', '0000-00-00 00:00:00'),
-(14, 'stj', 'vxcvxc', '      vvcxvvbcb      ', 0, '2018-03-13 17:33:53', '0000-00-00 00:00:00'),
-(15, 'stj', 'khjkhj', '   khjkhjkh         ', 0, '2018-03-13 17:33:57', '0000-00-00 00:00:00'),
-(16, 'stj', 'iyuiy', '            iyuiyui', 0, '2018-03-13 17:34:01', '0000-00-00 00:00:00'),
-(17, 'stj', 'aaaa', '          rrrrrrr  ', 0, '2018-03-14 14:25:02', '0000-00-00 00:00:00');
+CREATE TABLE `board_test` (
+  `idx` int(11) NOT NULL,
+  `ref_group` int(11) NOT NULL DEFAULT '0',
+  `ref_level` int(11) NOT NULL DEFAULT '0',
+  `ref_order` int(11) NOT NULL DEFAULT '0',
+  `member` varchar(50) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text,
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 테이블의 덤프 데이터 `board_test`
+--
+
+INSERT INTO `board_test` (`idx`, `ref_group`, `ref_level`, `ref_order`, `member`, `title`, `content`, `hits`, `created`, `updated`) VALUES
+(1, 1, 0, 0, 'stj', 'fdsfdsf', 'fdsfssfs', 0, '2018-03-24 16:53:45', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `file_boards`
+--
+
+CREATE TABLE `file_boards` (
+  `idx` int(11) NOT NULL,
+  `board_id` varchar(255) NOT NULL,
+  `board_idx` int(11) DEFAULT NULL,
+  `file_type` varchar(255) NOT NULL,
+  `file_size` varchar(255) NOT NULL,
+  `origina_name` varchar(255) NOT NULL,
+  `artifical_name` varchar(255) NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 테이블의 덤프 데이터 `file_boards`
+--
+
+INSERT INTO `file_boards` (`idx`, `board_id`, `board_idx`, `file_type`, `file_size`, `origina_name`, `artifical_name`, `created`) VALUES
+(0, 'board_test', 1, '', '', 'origina_name', 'artifical_name', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -93,32 +123,6 @@ INSERT INTO `member` (`idx`, `id`, `password`, `email`, `role`, `created`, `upda
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `project`
---
-
-CREATE TABLE `project` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `robots`
---
-
-CREATE TABLE `robots` (
-  `id` int(10) NOT NULL,
-  `name` varchar(70) NOT NULL,
-  `year` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- 테이블 구조 `setup_board`
 --
 
@@ -134,58 +138,16 @@ CREATE TABLE `setup_board` (
 --
 
 INSERT INTO `setup_board` (`idx`, `id`, `name`, `created`) VALUES
-(1, 'aaaaaaaaaa', 'aaaaaaaaa', '2018-03-14 16:06:46'),
-(2, 'a1', 'a2', '2018-03-14 16:07:00'),
-(3, 'aaaa', 'rrrr', '2018-03-14 17:09:12'),
-(4, 'aaaa', 'rrrr', '2018-03-14 17:10:04');
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `tj_admin`
---
-
-CREATE TABLE `tj_admin` (
-  `idx` int(11) NOT NULL,
-  `id` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- 테이블 구조 `user`
---
-
-CREATE TABLE `user` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(128) NOT NULL,
-  `role` enum('guest','user','admin') NOT NULL DEFAULT 'user',
-  `deleted` tinyint(1) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 테이블의 덤프 데이터 `user`
---
-
-INSERT INTO `user` (`id`, `email`, `password`, `role`, `deleted`, `created_at`, `updated_at`) VALUES
-(1, 'admin@admin.com', 'test', '', 0, '2013-10-14 16:57:16', '2013-10-14 17:04:23'),
-(7, 'user3332@user.com', '$2y$08$Q2dSMm9ORXNrbDN1clpTMOeMceNxvGJlTbwsN8vkAV83PstHieAUS', 'guest', 0, '2013-10-14 16:59:10', '0000-00-00 00:00:00'),
-(12, 'simtj53@nate.com', '$2y$08$cElHSHpHOVR1VGVPVkMzYeZrst10.ev/hSnc20qa6v59mMyM00Bkm', 'user', NULL, '2017-10-16 17:24:14', NULL),
-(14, 'test@test.com', '$2y$08$SGkwN0RFblIxclpaRzl1KuvpxYTTKvW7Y7O0DGk3abAMvVbuCM8M2', 'guest', NULL, '2017-11-09 17:31:51', NULL),
-(15, 'fsadfsf', 'fasdfasf', 'user', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(5, 'test', 'test', '2018-03-24 16:35:24');
 
 --
 -- 덤프된 테이블의 인덱스
 --
 
 --
--- 테이블의 인덱스 `board`
+-- 테이블의 인덱스 `board_test`
 --
-ALTER TABLE `board`
+ALTER TABLE `board_test`
   ADD PRIMARY KEY (`idx`);
 
 --
@@ -195,85 +157,30 @@ ALTER TABLE `member`
   ADD PRIMARY KEY (`idx`);
 
 --
--- 테이블의 인덱스 `project`
---
-ALTER TABLE `project`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK__user` (`user_id`);
-
---
--- 테이블의 인덱스 `robots`
---
-ALTER TABLE `robots`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 테이블의 인덱스 `setup_board`
 --
 ALTER TABLE `setup_board`
   ADD PRIMARY KEY (`idx`);
 
 --
--- 테이블의 인덱스 `tj_admin`
---
-ALTER TABLE `tj_admin`
-  ADD PRIMARY KEY (`idx`);
-
---
--- 테이블의 인덱스 `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 덤프된 테이블의 AUTO_INCREMENT
 --
 
 --
--- 테이블의 AUTO_INCREMENT `board`
+-- 테이블의 AUTO_INCREMENT `board_test`
 --
-ALTER TABLE `board`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `board_test`
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- 테이블의 AUTO_INCREMENT `member`
 --
 ALTER TABLE `member`
   MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
--- 테이블의 AUTO_INCREMENT `project`
---
-ALTER TABLE `project`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- 테이블의 AUTO_INCREMENT `robots`
---
-ALTER TABLE `robots`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
---
 -- 테이블의 AUTO_INCREMENT `setup_board`
 --
 ALTER TABLE `setup_board`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- 테이블의 AUTO_INCREMENT `tj_admin`
---
-ALTER TABLE `tj_admin`
-  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT;
---
--- 테이블의 AUTO_INCREMENT `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- 덤프된 테이블의 제약사항
---
-
---
--- 테이블의 제약사항 `project`
---
-ALTER TABLE `project`
-  ADD CONSTRAINT `FK__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
+  MODIFY `idx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
