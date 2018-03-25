@@ -59,15 +59,21 @@ class Board extends ModelBase
         return $this->validate($validator);
     }
 
-    public function setTemp()
+    public function findwithfile($parameters = null)
     {
-        $this->temp = $this->getSource()." ::::  ".$this->idx;
+        $t = parent::find($parameters);
+        return $t;
+        //return parent::find($parameters);
+    }
+
+    public function setTemp($idx)
+    {
+        $this->temp = $this->getSource()." ::::  ".$idx;
         //$this->temp = $temp;
     }
 
     public function getTemp()
     {
-
         return $this->temp;
     }
 
