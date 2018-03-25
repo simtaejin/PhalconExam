@@ -33,7 +33,6 @@ class BoardController extends ControllerBase
             $board = new Board();
             $board->setSource($board_id);
             $board_data = $board->find($parameters);
-
         } catch (Exception   $e) {
             $this->component->helper->alert("해당 게시판이 없습니다.", "/setup/board/");
             exit;

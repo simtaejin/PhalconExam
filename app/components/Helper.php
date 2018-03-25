@@ -39,8 +39,10 @@ HERE;
     public function printr($arr)
     {
         
-        if (is_object($arr)) {          
+        if (is_object($arr)) {
+            echo "<xmp>";
             var_dump($arr);
+            echo "</xmp>";
         } else if (is_array($arr)) {
             echo "<xmp>";
             print_r($arr);

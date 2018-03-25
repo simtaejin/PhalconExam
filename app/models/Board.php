@@ -17,6 +17,7 @@ class Board extends ModelBase
     public $hits;
     public $created;
     public $updated;
+    public $temp;
 
 
     public function initialize()
@@ -25,6 +26,7 @@ class Board extends ModelBase
 
         $this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
+
     }
 
 
@@ -55,7 +57,18 @@ class Board extends ModelBase
         ]));
 
         return $this->validate($validator);
-
-
     }
+
+    public function setTemp()
+    {
+        $this->temp = $this->getSource()." ::::  ".$this->idx;
+        //$this->temp = $temp;
+    }
+
+    public function getTemp()
+    {
+
+        return $this->temp;
+    }
+
 }
