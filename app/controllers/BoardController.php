@@ -13,6 +13,12 @@ class BoardController extends ControllerBase
         parent::initialize();
         $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
+
+        try {
+            $board = new Board();
+        } catch (Exception   $e) {
+          
+        }
     }
 
     public function indexAction()
@@ -29,21 +35,9 @@ class BoardController extends ControllerBase
 
         $parameters["order"] = "ref_group desc, ref_order asc";
 
-        try {
-            $board = new Board();
-            $board->setSource($board_id);
-            $board_data = $board->findwithfile($parameters);
-
-
-            echo "<xmp>";
-            print_r($board_data);
-            echo "</xmp>";
-
-            exit;
-        } catch (Exception   $e) {
-            $this->component->helper->alert("해당 게시판이 없습니다.", "/setup/board/");
-            exit;
-        }
+		$board = new Board();
+		$board->setSource($board_id);
+		$board_data = $board->findwithfile($parameters);
        
         $paginator = new Paginator([
             'data' => $board_data,

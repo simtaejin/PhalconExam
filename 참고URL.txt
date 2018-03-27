@@ -42,3 +42,11 @@ https://phalcontip.com/discussion/28/upload-image-model-behavior
 https://olddocs.phalconphp.com/en/3.0.0/api/Phalcon_Image_Adapter_Imagick.html
 https://docs.phalconphp.com/en/latest/request#uploading-files
 http://pet2r.tistory.com/271
+
+
+
+
+
+
+
+http://apigen.juzna.cz/doc/phalcon/phalcon-devtools/index.html
