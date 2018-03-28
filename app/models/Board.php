@@ -2,11 +2,9 @@
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
-use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 class Board extends ModelBase
 {
-    public $table;
     public $idx;
     public $ref_group;
     public $ref_level;
@@ -26,6 +24,7 @@ class Board extends ModelBase
 
         $this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
+
 
     }
 
@@ -61,15 +60,41 @@ class Board extends ModelBase
 
     public function findwithfile($parameters = null)
     {
-        $t = parent::find($parameters);
-        return $t;
+        $result = parent::find($parameters);
+
+        $temp_array = array();
+
+        $files = new Files();
+        $files->setSource("file_boards");
+
+        foreach ($result as $index => $item) {
+            $files_data = $files->find(
+                [
+                    "board_id = :board_id: AND board_idx = :board_idx:" ,
+                    "bind" =>["board_id"=>$this->getSource(),"board_idx"=>$item->idx]
+                ]
+            );
+
+            if ($files_data->count() > 0) {
+                foreach ($files_data as $k => $v) {
+                    $temp_array[$item->idx][$k]["artifical_name"] = $files_data[$k]->artifical_name;
+                }
+            } else {
+                $temp_array[$item->idx] = "";
+            }
+        }
+
+        $result->temp = $temp_array;
+
+        return $result;
         //return parent::find($parameters);
     }
 
-    public function setTemp($idx)
+    public function setTemp($temp)
     {
-        $this->temp = $this->getSource()." ::::  ".$idx;
-        //$this->temp = $temp;
+        //$this->temp = $this->getSource()." ::::  ".$idx;
+
+        $this->temp = $temp;
     }
 
     public function getTemp()

@@ -21,7 +21,17 @@
         <tbody>
         <?php foreach ($page->items as $v => $board): ?>
             <tr>
-                <td><?php echo $page_num - $v?></td>
+                <td>
+                        <?php echo $page_num - $v?>
+                        <?
+
+                               print_r($files[$board->idx]);
+
+
+
+
+                        ?>
+                </td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $board->title]);?></td>
                 <td><?php echo $board->member ?></td>
                 <td><?php echo $this->component->helper->dateformate("Y.m.d H.i.s", $board->created )?></td>
