@@ -77,6 +77,7 @@ class Board extends ModelBase
 
             if ($files_data->count() > 0) {
                 foreach ($files_data as $k => $v) {
+                    $temp_array[$item->idx][$k]["origina_name"] = $files_data[$k]->origina_name;
                     $temp_array[$item->idx][$k]["artifical_name"] = $files_data[$k]->artifical_name;
                 }
             } else {

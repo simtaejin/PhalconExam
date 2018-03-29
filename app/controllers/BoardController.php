@@ -94,7 +94,13 @@ class BoardController extends ControllerBase
 
         $board = new Board();
         $board->setSource($board_id);
-        $board_data = $board->findFirstByIdx($board_idx);
+        //$board_data = $board->findFirstByIdx($board_idx);
+        $board_data = $board->findwithfile(
+            [
+                "idx = :idx: ",
+                "bind" => ["idx"=>$board_idx]
+            ]
+        );
 
         $sess = "sess_".$board_id."_".$board_idx;
         if (!$this->session->has($sess)) {
@@ -107,8 +113,9 @@ class BoardController extends ControllerBase
 
         $this->view->setVar("board_id", $board_id);
         $this->view->setVar("board_idx", $board_idx);
-        $this->view->setVar("title", $board_data->title);
-        $this->view->setVar("content", $board_data->content);
+        $this->view->setVar("title", $board_data[0]->title);
+        $this->view->setVar("content", $board_data[0]->content);
+        $this->view->setVar("files", $board_data->temp);
     }
 
     public function updateAction()
