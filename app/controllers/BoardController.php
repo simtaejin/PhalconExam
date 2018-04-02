@@ -68,9 +68,21 @@ class BoardController extends ControllerBase
             $board->content = $this->request->getPost("content");
             $board->member = $this->session->get("id");
 
+
+            if ($this->request->hasFiles()) {
+                $files = $this->request->getUploadedFiles();
+
+                foreach ($files as $file) {
+
+                }
+            }
+
             if (!$board->create()) {
                 foreach ($board->getMessages() as $message) {
-                    echo $message . "<br>";
+                    if ($message == "title is required") {
+                    }
+                    if ($message == "content is required") {
+                    }
                 }
                 return;
             } else {

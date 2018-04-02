@@ -20,11 +20,17 @@
     <div class="form-group">
         <label for="fieldCONTENTS" class="col-sm-2 control-label">Contents</label>
         <div class="col-sm-10">
-            <textarea name="content" id="fieldCONTENTS" class="form-control" rows="13"  >
-
-            </textarea>
+            <textarea name="content" id="fieldCONTENTS" class="form-control" rows="13"  ></textarea>
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="fieldFILE" class="col-sm-2 control-label">FILES</label>
+        <div class="col-sm-10">
+            <input type="file" name="files[]" id="fieldFILE" class="form-control">
+        </div>
+    </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 쓰기</button>
 
 </form>
