@@ -13,6 +13,7 @@
             <th>No</th>
             <th>Title</th>
             <th>Member</th>
+	    <th>Files</th>
             <th>Created</th>
             <th></th>
             <th></th>
@@ -23,12 +24,17 @@
             <tr>
                 <td>
                         <?php echo $page_num - $v?>
-                        <?php
-                            print_r($files[$board->idx]);
-                        ?>
+
                 </td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $board->title]);?></td>
                 <td><?php echo $board->member ?></td>
+		<td>
+		<?php
+		if (isset($files[$board->idx][0])) {
+			echo count($files[$board->idx]);
+		}	
+		?>
+		</td>
                 <td><?php echo $this->component->helper->dateformate("Y.m.d H.i.s", $board->created )?></td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/update/".$board->idx, "수정"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/delete/". $board->idx, "삭제"]); ?></td>

@@ -68,23 +68,6 @@ class BoardController extends ControllerBase
             $board->content = $this->request->getPost("content");
             $board->member = $this->session->get("id");
 
-            if ($this->request->hasFiles()) {
-
-                if (!is_dir ($this->config->application->dataDir."/board/".$board_id)) {
-                    mkdir($this->config->application->dataDir, 0777);
-                    mkdir($this->config->application->dataDir."/board/", 0777);
-                    mkdir($this->config->application->dataDir."/board/".$board_id, 0777);
-                }
-
-/*
-                foreach ($this->request->getUploadedFiles() as  $k => $v) {
-                    $origina_name = $v->getName();
-                    $artifical_name = Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM).".".$v->getExtension();
-                    $v->moveTo($this->config->application->dataDir."/board/".$board_id."/".$artifical_name);
-                }
-*/
-            }
-
             if (!$board->create()) {
                 foreach ($board->getMessages() as $message) {
                     if ($message == "title is required") {
@@ -101,6 +84,34 @@ class BoardController extends ControllerBase
 
                 $temp_data->ref_group = $board->idx;
                 $temp_data->update();
+
+
+				if ($this->request->hasFiles()) {
+
+					if (!is_dir ($this->config->application->dataDir."/board/".$board_id)) {
+						mkdir($this->config->application->dataDir, 0777);
+						mkdir($this->config->application->dataDir."/board/", 0777);
+						mkdir($this->config->application->dataDir."/board/".$board_id, 0777);
+					}
+
+					foreach ($this->request->getUploadedFiles() as  $k => $v) {
+
+						$files = new Files();
+						$files->setSource("file_boards");
+						$files->board_id = $board->getSource();
+						$files->board_idx = $board->idx;
+						$files->file_type = $v->getType();
+						$files->file_size = $v->getSize();
+						$files->origina_name = $v->getName();
+						$files->artifical_name = Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM).".".$v->getExtension();
+						
+						$files->create();
+						$v->moveTo($this->config->application->dataDir."/board/".$board_id."/".Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM).".".$v->getExtension());
+
+					}
+
+				}
+
             }
 
             $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");

@@ -27,7 +27,8 @@
     <div class="form-group">
         <label for="fieldFILE" class="col-sm-2 control-label">FILES</label>
         <div class="col-sm-10">
-            <input type="file" name="files[]" id="fieldFILE" class="form-control">
+            <input type="file" name="files[]" id="fieldFILE1" class="form-control">
+            <input type="file" name="files[]" id="fieldFILE2" class="form-control">
         </div>
     </div>
 
