@@ -53,4 +53,10 @@ http://pet2r.tistory.com/271
 http://apigen.juzna.cz/doc/phalcon/phalcon-devtools/index.html
 
 
+<<<<<<< HEAD
 afdsfadf
+=======
+
+aaaaaaaaaaaaaaaaaaaaaaa
+master
+>>>>>>> remotes/origin/master
