@@ -126,6 +126,15 @@ class BoardController extends ControllerBase
         $board = new Board();
         $board->setSource($board_id);
         //$board_data = $board->findFirstByIdx($board_idx);
+
+        $board_data = $board->finds([
+            "idx = :idx: ",
+            "bind" => ["idx"=>$board_idx]
+        ]);
+
+
+
+        exit;
         $board_data = $board->findwithfile(
             [
                 "idx = :idx: ",
@@ -221,7 +230,7 @@ class BoardController extends ControllerBase
             $ref_level = $this->request->getPost("ref_level");
             $ref_order = $this->request->getPost("ref_order");
 
-            //$this->component->helper->csrf("board/replycreate");
+            $this->component->helper->csrf("board/replycreate");
     
             $result = $this->db->execute(
                 "update `board_".$board_id."` set  `ref_order` = `ref_order` + 1 where `ref_group` = ? and `ref_order` > ?",
