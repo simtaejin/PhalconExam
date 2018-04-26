@@ -1,2 +1,10 @@
 .idea
 cache/*.volt.php
+cache/*.php
+data/
+public/webtools.config.php
+public/webtools.php
+public/css/codemirror.css
+public/css/webtools.css
+public/js/codemirror.js
+public/js/webtools.js
