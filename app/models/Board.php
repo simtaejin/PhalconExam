@@ -67,15 +67,8 @@ class Board extends ModelBase
         // find_comments 호출 (댓글)
 
 
-        $this->find_temp($result);
+        $this->find_file($result);
         $this->find_comment($result);
-
-
-        echo "<xmp>";
-        print_R($result);
-        echo "</xmp>";
-
-        exit;
 
         return $result;
     }
@@ -83,10 +76,35 @@ class Board extends ModelBase
 
     public function find_comment($result)
     {
+        $temp_array = array();
 
+        $comments = new Comments();
+        $comments->setSource("comment_boards");
+
+        foreach ($result as $index => $item) {
+            $comments_data = $comments->find(
+                [
+                    "board_id = :board_id: AND board_idx = :board_idx:",
+                    "bind" => ["board_id" => $this->getSource(), "board_idx" => $item->idx]
+                ]
+            );
+
+            if ($comments_data->count() > 0) {
+                foreach ($comments_data as $k => $v) {
+                    $temp_array[$item->idx][$k]["comment_idx"] = $comments_data[$k]->idx;
+                    $temp_array[$item->idx][$k]["memo"] = $comments_data[$k]->memo;
+                }
+            } else {
+                $temp_array[$item->idx] = "";
+            }
+        }
+
+        $result->comments = $temp_array;
+
+        return $result;
     }
 
-    public function find_temp($result)
+    public function find_file($result)
     {
         $temp_array = array();
 
