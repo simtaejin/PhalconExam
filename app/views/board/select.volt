@@ -41,16 +41,16 @@
 <div class="row">
 
 
-    <form name="frm" class="form-horizontal" method="get" action="/board/{{ board_id }}/update/{{ board_idx }}">
+    <form id="frm_comment" name="frm_comment" class="form-horizontal" method="post" action="/board/{{ board_id }}/update/{{ board_idx }}">
 
         <div class="form-group">
-            <label for="fieldCONTENTS" class="col-sm-2 control-label">Contents</label>
+            <label for="fieldMEMO" class="col-sm-2 control-label">Memo</label>
             <div class="col-sm-10">
-                <textarea name="content" id="fieldCONTENTS" class="form-control" rows="3"  ></textarea>
+                <textarea name="memo" id="fieldMEMO" class="form-control" rows="3"  ></textarea>
             </div>
         </div>
         <div class="navbar-right">
-            추가
+            <span id="btn_comment">추가</span>
         </div>
     </form>
 
@@ -93,5 +93,12 @@
             $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
             $("[name='frm']").submit();
         });
+
+        $('#btn_comment').click(function () {
+
+            $.post("/board/{{ board_id }}/commnetcreate/{{ board_idx }}", $('#frm_comment').serialize() , function(data) {
+
+            });
+        })
     });
 </script>

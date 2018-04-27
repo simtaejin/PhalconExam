@@ -17,7 +17,7 @@ class BoardController extends ControllerBase
         try {
             $board = new Board();
         } catch (Exception   $e) {
-          
+
         }
     }
 
@@ -35,10 +35,10 @@ class BoardController extends ControllerBase
 
         $parameters["order"] = "ref_group desc, ref_order asc";
 
-		$board = new Board();
-		$board->setSource($board_id);
+        $board = new Board();
+        $board->setSource($board_id);
 
-		$board_data = $board->finds($parameters);
+        $board_data = $board->finds($parameters);
 
         $paginator = new Paginator([
             'data' => $board_data,
@@ -87,35 +87,35 @@ class BoardController extends ControllerBase
                 $temp_data->update();
 
 
-				if ($this->request->hasFiles()) {
+                if ($this->request->hasFiles()) {
 
-					if (!is_dir ($this->config->application->dataDir."/board/".$board_id)) {
-						mkdir($this->config->application->dataDir, 0777);
-						mkdir($this->config->application->dataDir."/board/", 0777);
-						mkdir($this->config->application->dataDir."/board/".$board_id, 0777);
-					}
+                    if (!is_dir($this->config->application->dataDir . "/board/" . $board_id)) {
+                        mkdir($this->config->application->dataDir, 0777);
+                        mkdir($this->config->application->dataDir . "/board/", 0777);
+                        mkdir($this->config->application->dataDir . "/board/" . $board_id, 0777);
+                    }
 
-					foreach ($this->request->getUploadedFiles() as  $k => $v) {
+                    foreach ($this->request->getUploadedFiles() as $k => $v) {
 
-						$files = new Files();
-						$files->setSource("file_boards");
-						$files->board_id = $board->getSource();
-						$files->board_idx = $board->idx;
-						$files->file_type = $v->getType();
-						$files->file_size = $v->getSize();
-						$files->origina_name = $v->getName();
-						$files->artifical_name = Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM).".".$v->getExtension();
-						
-						$files->create();
-						$v->moveTo($this->config->application->dataDir."/board/".$board_id."/".Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM).".".$v->getExtension());
+                        $files = new Files();
+                        $files->setSource("file_boards");
+                        $files->board_id = $board->getSource();
+                        $files->board_idx = $board->idx;
+                        $files->file_type = $v->getType();
+                        $files->file_size = $v->getSize();
+                        $files->origina_name = $v->getName();
+                        $files->artifical_name = Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM) . "." . $v->getExtension();
 
-					}
+                        $files->create();
+                        $v->moveTo($this->config->application->dataDir . "/board/" . $board_id . "/" . Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM) . "." . $v->getExtension());
 
-				}
+                    }
+
+                }
 
             }
 
-            $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");
+            $this->component->helper->alert("글 등록 되었습니다.", "/board/" . $board_id . "/");
         }
     }
 
@@ -130,14 +130,14 @@ class BoardController extends ControllerBase
 
         $board_data = $board->finds([
             "idx = :idx: ",
-            "bind" => ["idx"=>$board_idx]
+            "bind" => ["idx" => $board_idx]
         ]);
 
-        $sess = "sess_".$board_id."_".$board_idx;
+        $sess = "sess_" . $board_id . "_" . $board_idx;
         if (!$this->session->has($sess)) {
             $this->session->set($sess, $sess);
             $result = $this->db->execute(
-                "update `board_".$board_id."` set  `hits` = `hits` + 1 where `idx` = ? ",
+                "update `board_" . $board_id . "` set  `hits` = `hits` + 1 where `idx` = ? ",
                 [$board_idx]
             );
         }
@@ -154,12 +154,12 @@ class BoardController extends ControllerBase
     {
         $board_id = $this->dispatcher->getParam('board_id');
         $board_idx = $this->dispatcher->getParam('idx');
-        
+
         if ($this->request->isPost()) {
             $this->view->disable();
 
             $this->component->helper->csrf("board/create");
-            
+
             $board = new Board();
             $board->setSource($board_id);
             $board_data = $board->findFirstByIdx($board_idx);
@@ -173,13 +173,13 @@ class BoardController extends ControllerBase
                 return;
             }
 
-            $this->component->helper->alert("글 수정 되었습니다.", "/board/".$board_id."/select/".$board_idx);
+            $this->component->helper->alert("글 수정 되었습니다.", "/board/" . $board_id . "/select/" . $board_idx);
 
         } else {
             $board = new Board();
             $board->setSource($board_id);
             $board_data = $board->findFirstByIdx($board_idx);
-    
+
             $this->view->setVar("board_id", $board_id);
             $this->view->setVar("board_idx", $board_idx);
             $this->view->setVar("title", $board_data->title);
@@ -188,7 +188,7 @@ class BoardController extends ControllerBase
         }
     }
 
-    public function deleteAction() 
+    public function deleteAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
         $board_idx = $this->dispatcher->getParam('idx');
@@ -204,10 +204,10 @@ class BoardController extends ControllerBase
             return;
         }
 
-        $this->component->helper->alert("회원 삭제 되었습니다.", "/board/".$board_id."/");
-           
+        $this->component->helper->alert("회원 삭제 되었습니다.", "/board/" . $board_id . "/");
+
     }
-    
+
     public function replycreateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -223,9 +223,9 @@ class BoardController extends ControllerBase
             $ref_order = $this->request->getPost("ref_order");
 
             $this->component->helper->csrf("board/replycreate");
-    
+
             $result = $this->db->execute(
-                "update `board_".$board_id."` set  `ref_order` = `ref_order` + 1 where `ref_group` = ? and `ref_order` > ?",
+                "update `board_" . $board_id . "` set  `ref_order` = `ref_order` + 1 where `ref_group` = ? and `ref_order` > ?",
                 [$ref_group, $ref_order]
             );
 
@@ -249,22 +249,57 @@ class BoardController extends ControllerBase
                 return;
             }
 
-            $this->component->helper->alert("글 등록 되었습니다.", "/board/".$board_id."/");
+            $this->component->helper->alert("글 등록 되었습니다.", "/board/" . $board_id . "/");
 
         } else {
             $board = new Board();
             $board->setSource($board_id);
             $board_data = $board->findFirstByIdx($board_idx);
-  
+
             //$this->component->helper->printr($board_data);
- 
+
             $this->view->setVar("board_id", $board_id);
             $this->view->setVar("board_idx", $board_idx);
             $this->view->setVar("ref_group", $board_data->ref_group);
             $this->view->setVar("ref_level", $board_data->ref_level);
             $this->view->setVar("ref_order", $board_data->ref_order);
             $this->view->setVar("title", $board_data->title);
-            $this->view->setVar("content", $board_data->content);            
+            $this->view->setVar("content", $board_data->content);
+        }
+    }
+
+    public function commnetcreateAction()
+    {
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
+        if ($this->request->isAjax()) {
+            $board = new Board();
+            $board->setSource($board_id);
+
+            $comments = new Comments();
+            $comments->setSource("comment_boards");
+            $comments->board_id = $board->getSource();
+            $comments->board_idx = $board_idx;
+            $comments->memo = $this->request->getPost("memo");
+            $comments->member = $this->session->get("id");
+
+            if ($comments->create()) {
+                $aa = Comments::find(
+                    [
+                        "board_id = :board_id: AND board_idx = :board_idx:",
+                        "bind" => ["board_id" => $board->getSource(), "board_idx" => $board_idx]
+                    ]
+                );
+
+                print_R($aa);
+
+            }
+
+
+
+
+            exit;
         }
     }
 }

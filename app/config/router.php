@@ -60,4 +60,9 @@ $router->add('/board/{board_id}/replycreate/{idx}', [
     'action' => 'replycreate'
 ]);
 
+$router->add('/board/{board_id}/commnetcreate/{idx}', [
+    'controller' => 'board',
+    'action' => 'commnetcreate'
+]);
+
 $router->handle();
