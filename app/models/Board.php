@@ -15,8 +15,6 @@ class Board extends ModelBase
     public $hits;
     public $created;
     public $updated;
-    public $temp;
-
 
     public function initialize()
     {
@@ -24,10 +22,7 @@ class Board extends ModelBase
 
         $this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
-
-
     }
-
 
     public function setSource($source)
     {
@@ -58,21 +53,15 @@ class Board extends ModelBase
         return $this->validate($validator);
     }
 
-
     public function finds($parameters = null)
     {
         $result = parent::find($parameters);
-
-        // find_temp 호출 (첨부 파일)
-        // find_comments 호출 (댓글)
-
 
         $this->find_file($result);
         $this->find_comment($result);
 
         return $result;
     }
-
 
     public function find_comment($result)
     {
@@ -131,41 +120,6 @@ class Board extends ModelBase
         }
 
         $result->files = $temp_array;
-
-        return $result;
-        //return parent::find($parameters);
-    }
-
-
-    public function findwithfile($parameters = null)
-    {
-        $result = parent::find($parameters);
-
-        $temp_array = array();
-
-        $files = new Files();
-        $files->setSource("file_boards");
-
-        foreach ($result as $index => $item) {
-            $files_data = $files->find(
-                [
-                    "board_id = :board_id: AND board_idx = :board_idx:",
-                    "bind" => ["board_id" => $this->getSource(), "board_idx" => $item->idx]
-                ]
-            );
-
-            if ($files_data->count() > 0) {
-                foreach ($files_data as $k => $v) {
-                    $temp_array[$item->idx][$k]["file_idx"] = $files_data[$k]->idx;
-                    $temp_array[$item->idx][$k]["origina_name"] = $files_data[$k]->origina_name;
-                    $temp_array[$item->idx][$k]["artifical_name"] = $files_data[$k]->artifical_name;
-                }
-            } else {
-                $temp_array[$item->idx] = "";
-            }
-        }
-
-        $result->temp = $temp_array;
 
         return $result;
         //return parent::find($parameters);

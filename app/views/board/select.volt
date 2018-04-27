@@ -18,7 +18,7 @@
     <div class="form-group">
         <label for="fieldCONTENTS" class="col-sm-2 control-label">Contents</label>
         <div class="col-sm-10">
-            {{ content }}
+            {{ content|nl2br }}
         </div>
     </div>
 
@@ -37,6 +37,56 @@
     <button class="btn btn-lg btn-primary btn-block" type="button" name="btn_reply" id="btn_reply">글 답글</button>
 </form>
 
+
+<div class="row">
+
+
+    <form name="frm" class="form-horizontal" method="get" action="/board/{{ board_id }}/update/{{ board_idx }}">
+
+        <div class="form-group">
+            <label for="fieldCONTENTS" class="col-sm-2 control-label">Contents</label>
+            <div class="col-sm-10">
+                <textarea name="content" id="fieldCONTENTS" class="form-control" rows="3"  ></textarea>
+            </div>
+        </div>
+        <div class="navbar-right">
+            추가
+        </div>
+    </form>
+
+
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>memo</th>
+            <th>Member</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if ($comments[$board_idx]): ?>
+            <?php foreach ($comments[$board_idx] as $k => $v): ?>
+            <tr>
+                <td></td>
+                <td><?php echo nl2br($v['memo'])?></td>
+                <td></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php endif;?>
+
+        </tbody>
+    </table>
+</div>
+
+
+<!--
+<?php if ($comments[$board_idx]): ?>
+    <?php foreach ($comments[$board_idx] as $k => $v): ?>
+        <?php echo nl2br($v['memo'])."<br>" ?>
+    <?php endforeach; ?>
+<?php endif;?>
+-->
 <script>
     $(function() {
         $('#btn_reply').click(function(){

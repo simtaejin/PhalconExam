@@ -38,7 +38,7 @@ class BoardController extends ControllerBase
 		$board = new Board();
 		$board->setSource($board_id);
 
-		$board_data = $board->findwithfile($parameters);
+		$board_data = $board->finds($parameters);
 
         $paginator = new Paginator([
             'data' => $board_data,
@@ -48,7 +48,8 @@ class BoardController extends ControllerBase
 
         $this->view->setVar('board_id', $board_id);
         $this->view->page = $paginator->getPaginate();
-        $this->view->files = $board_data->temp;
+        $this->view->files = $board_data->files;
+        $this->view->comment = $board_data->comment;
     }
 
     public function createAction()
@@ -146,6 +147,7 @@ class BoardController extends ControllerBase
         $this->view->setVar("title", $board_data[0]->title);
         $this->view->setVar("content", $board_data[0]->content);
         $this->view->setVar("files", $board_data->files);
+        $this->view->setVar("comments", $board_data->comments);
     }
 
     public function updateAction()
