@@ -285,19 +285,37 @@ class BoardController extends ControllerBase
             $comments->member = $this->session->get("id");
 
             if ($comments->create()) {
-                $aa = Comments::find(
+                $comment_data = Comments::find(
                     [
                         "board_id = :board_id: AND board_idx = :board_idx:",
                         "bind" => ["board_id" => $board->getSource(), "board_idx" => $board_idx]
                     ]
                 );
 
-                print_R($aa);
+                $result['code'] = "00";
+                $result['msg'] = "등록 되었습니다.";
+
+                $result['value'] = "<table class=\"table table-bordered\">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>memo</th>
+                                        <th>Member</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>";
+
+
+                foreach ($comment_data as $k => $v) {
+                    $result['value'] .= "<tr><td></td><td>".nl2br($v->memo)."</td><td></td></tr>";
+                }
+
+                $result['value'] .= "</tbody>
+                                        </table>";
+
+                echo json_encode($result);
 
             }
-
-
-
 
             exit;
         }

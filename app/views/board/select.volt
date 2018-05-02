@@ -56,7 +56,7 @@
 
 
 
-    <table class="table table-bordered">
+    <table id="comment_table" class="table table-bordered">
         <thead>
         <tr>
             <th>No</th>
@@ -97,6 +97,12 @@
         $('#btn_comment').click(function () {
 
             $.post("/board/{{ board_id }}/commnetcreate/{{ board_idx }}", $('#frm_comment').serialize() , function(data) {
+                var parse_data = JSON.parse(data);
+                if (parse_data['code'] == "00") {
+                    alert(parse_data['msg']);
+                    $("#fieldMEMO").val("");
+                    $("#comment_table").html(parse_data['value']);
+                }
 
             });
         })
