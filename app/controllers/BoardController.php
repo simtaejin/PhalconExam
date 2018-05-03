@@ -339,6 +339,9 @@ class BoardController extends ControllerBase
 
             $comment_idx = $this->request->getPost("comment_idx");
 
+            $board = new Board();
+            $board->setSource($board_id);
+
             $comments = new Comments();
             $comments->setSource("comment_boards");
 
@@ -351,9 +354,10 @@ class BoardController extends ControllerBase
                 $comment_data = Comments::find(
                     [
                         "board_id = :board_id: AND board_idx = :board_idx:",
-                        "bind" => ["board_id" => $board_id, "board_idx" => $board_idx]
+                        "bind" => ["board_id" => $board->getSource(), "board_idx" => $board_idx]
                     ]
                 );
+
 
                 $result['value'] = "<table class=\"table table-bordered\">
                                         <thead>
@@ -379,6 +383,7 @@ class BoardController extends ControllerBase
 
                 $result['value'] .= "   </tbody>
                                        </table>";
+
 
                 echo json_encode($result);
             }
