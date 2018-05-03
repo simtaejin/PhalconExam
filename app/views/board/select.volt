@@ -62,15 +62,20 @@
             <th>No</th>
             <th>memo</th>
             <th>Member</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <?php if ($comments[$board_idx]): ?>
             <?php foreach ($comments[$board_idx] as $k => $v): ?>
             <tr>
+
                 <td></td>
                 <td><?php echo nl2br($v['memo'])?></td>
                 <td></td>
+                <td><span id="btn_comment_update_<?php echo $v['comment_idx']?>">수정</span></td>
+                <td><span id="btn_comment_delete_<?php echo $v['comment_idx']?>">삭제</span></td>
             </tr>
             <?php endforeach; ?>
         <?php endif;?>
@@ -95,7 +100,6 @@
         });
 
         $('#btn_comment').click(function () {
-
             $.post("/board/{{ board_id }}/commnetcreate/{{ board_idx }}", $('#frm_comment').serialize() , function(data) {
                 var parse_data = JSON.parse(data);
                 if (parse_data['code'] == "00") {
@@ -103,8 +107,22 @@
                     $("#fieldMEMO").val("");
                     $("#comment_table").html(parse_data['value']);
                 }
-
             });
-        })
+        });
+
+
+        $("[id ^= 'btn_comment_update_']").click(function () {
+
+        });
+
+        $("[id ^= 'btn_comment_delete_']").click(function () {
+            var tem_ = $(this).attr('id').split('_');
+
+            $.post("/board/{{ board_id }}/commentdelete/{{ board_idx }}" , {"comment_idx":tem_[3]}, function (data) {
+
+            })
+
+        });
+
     });
 </script>
