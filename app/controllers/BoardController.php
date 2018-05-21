@@ -307,7 +307,11 @@ class BoardController extends ControllerBase
 
 
                 foreach ($comment_data as $k => $v) {
-                    $result['value'] .= "<tr><td></td><td>".nl2br($v->memo)."</td><td></td></tr>";
+                    $result['value'] .= "<tr>
+                                          <td>".($k+1)."</td>
+                                          <td>".nl2br($v->memo)."</td>
+                                          <td>".$v->member."</td>
+                                         </tr>";
                 }
 
                 $result['value'] .= "</tbody>

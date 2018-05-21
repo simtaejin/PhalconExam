@@ -80,8 +80,10 @@ class Board extends ModelBase
 
             if ($comments_data->count() > 0) {
                 foreach ($comments_data as $k => $v) {
+                    $temp_array[$item->idx][$k]["idx"] = $k+1;
                     $temp_array[$item->idx][$k]["comment_idx"] = $comments_data[$k]->idx;
                     $temp_array[$item->idx][$k]["memo"] = $comments_data[$k]->memo;
+                    $temp_array[$item->idx][$k]["member"] = $comments_data[$k]->member;
                 }
             } else {
                 $temp_array[$item->idx] = "";
