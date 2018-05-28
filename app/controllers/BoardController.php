@@ -274,6 +274,8 @@ class BoardController extends ControllerBase
         $board_idx = $this->dispatcher->getParam('idx');
 
         if ($this->request->isAjax()) {
+            $this->view->disable();
+
             $board = new Board();
             $board->setSource($board_id);
 
@@ -296,29 +298,101 @@ class BoardController extends ControllerBase
                 $result['msg'] = "등록 되었습니다.";
 
                 $result['value'] = "<table class=\"table table-bordered\">
-                                    <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>memo</th>
-                                        <th>Member</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>";
-
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>memo</th>
+                                            <th>Member</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>";
 
                 foreach ($comment_data as $k => $v) {
                     $result['value'] .= "<tr>
+<<<<<<< HEAD
                                           <td>".($k+1)."</td>
                                           <td>".nl2br($v->memo)."</td>
                                           <td>".$v->member."</td>
                                          </tr>";
+=======
+                                            <td></td>
+                                            <td>".nl2br($v->memo)."</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                           </tr>";
+>>>>>>> 791df8f6ce0f62f832b676b5eb3fb4dec87abea9
                 }
 
-                $result['value'] .= "</tbody>
-                                        </table>";
+                $result['value'] .= "   </tbody>
+                                       </table>";
 
                 echo json_encode($result);
+            }
 
+            exit;
+        }
+    }
+
+    public function commentdeleteAction()
+    {
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
+        if ($this->request->isAjax()) {
+            $this->view->disable();
+
+            $comment_idx = $this->request->getPost("comment_idx");
+
+            $board = new Board();
+            $board->setSource($board_id);
+
+            $comments = new Comments();
+            $comments->setSource("comment_boards");
+
+            $comments_date = $comments->findFirstByIdx($comment_idx);
+
+            if ($comments_date->delete()) {
+                $result['code'] = "00";
+                $result['msg'] = "삭제 되었습니다.";
+
+                $comment_data = Comments::find(
+                    [
+                        "board_id = :board_id: AND board_idx = :board_idx:",
+                        "bind" => ["board_id" => $board->getSource(), "board_idx" => $board_idx]
+                    ]
+                );
+
+
+                $result['value'] = "<table class=\"table table-bordered\">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>memo</th>
+                                            <th>Member</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>";
+
+                foreach ($comment_data as $k => $v) {
+                    $result['value'] .= "<tr>
+                                            <td></td>
+                                            <td>".nl2br($v->memo)."</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                           </tr>";
+                }
+
+                $result['value'] .= "   </tbody>
+                                       </table>";
+
+
+                echo json_encode($result);
             }
 
             exit;

@@ -38,8 +38,6 @@ $router->add('/board/{board_id}/create/', [
     'action' => 'create'
 ]);
 
-
-
 $router->add('/board/{board_id}/select/{idx}', [
     'controller' => 'board',
     'action' => 'select'
@@ -63,6 +61,11 @@ $router->add('/board/{board_id}/replycreate/{idx}', [
 $router->add('/board/{board_id}/commnetcreate/{idx}', [
     'controller' => 'board',
     'action' => 'commnetcreate'
+]);
+
+$router->add('/board/{board_id}/commentdelete/{idx}', [
+    'controller' => 'board',
+    'action' => 'commentdelete'
 ]);
 
 $router->handle();
