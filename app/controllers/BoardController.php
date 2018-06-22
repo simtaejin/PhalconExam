@@ -310,20 +310,14 @@ class BoardController extends ControllerBase
                                         <tbody>";
 
                 foreach ($comment_data as $k => $v) {
+                    $k = $k+1;
                     $result['value'] .= "<tr>
-<<<<<<< HEAD
-                                          <td>".($k+1)."</td>
-                                          <td>".nl2br($v->memo)."</td>
-                                          <td>".$v->member."</td>
-                                         </tr>";
-=======
-                                            <td></td>
+                                            <td>{$k}</td>
                                             <td>".nl2br($v->memo)."</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>2</td>
+                                            <td>{$v->member}</td>
+                                            <td><span id=\"btn_comment_selete_{$v->idx}\">수정</span></td>
+                                            <td>삭제</td>
                                            </tr>";
->>>>>>> 791df8f6ce0f62f832b676b5eb3fb4dec87abea9
                 }
 
                 $result['value'] .= "   </tbody>
