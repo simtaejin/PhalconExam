@@ -74,8 +74,8 @@
                 <td><?php echo $v['idx']?></td>
                 <td><span id="txt_comment_selete_<?php echo $v['comment_idx']?>"><?php echo nl2br($v['memo'])?></span></td>
                 <td><?php echo nl2br($v['member'])?></td>
-                <td><span id="btn_comment_selete_<?php echo $v['comment_idx']?>">수정</span></td>
-                <td>삭제</td>
+                <td><span id="btn_comment_selete_<?php echo $v['comment_idx']?>"  onClick="btn_comment_selete('btn_comment_selete_<?php echo $v['comment_idx']?>')">수정</span></td>
+                <td><span id="btn_comment_delete_<?php echo $v['comment_idx']?>"  onClick="btn_comment_delete('btn_comment_delete_<?php echo $v['comment_idx']?>')">삭제</span></td>
             </tr>
             <?php endforeach; ?>
         <?php endif;?>
@@ -86,13 +86,40 @@
 </div>
 
 <script>
+    /* 댓글 선택 */
+    function btn_comment_selete(id) {
+        var comment_idx = id.split('_');
+
+        $("[name='memo']").val( $("[id=txt_comment_selete_"+comment_idx[3]+"]").html().replace(/<br\s?\/?>/g,"\n"));
+        $("[name='select_comment_idx']").attr('value',comment_idx[3]);
+
+        $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
+        $("[id=btn_comment_update]").attr('style', 'display:');
+    }
+
+    /* 댓글 삭제 */
+    function btn_comment_delete(id) {
+        var tem_ = id.split('_');
+
+        $.post("/board/{{ board_id }}/commentdelete/{{ board_idx }}" , {"comment_idx":tem_[3]}, function (data) {
+            var parse_data = JSON.parse(data);
+            if (parse_data['code'] == "00") {
+                alert(parse_data['msg']);
+                $("#fieldMEMO").val("");
+                $("#comment_table").html(parse_data['value']);
+            }
+        })
+    }
+
     $(function() {
+        
+        /* 글 답글 */
         $('#btn_reply').click(function(){
             $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
             $("[name='frm']").submit();
         });
 
-
+        /* 댓글 작성 */
         $('#btn_comment_create').click(function () {
             $.post("/board/{{ board_id }}/commnetcreate/{{ board_idx }}", $('#frm_comment').serialize() , function(data) {
                 var parse_data = JSON.parse(data);
@@ -104,31 +131,21 @@
             });
         });
 
+        /* 댓글 수정 */
+        $('#btn_comment_update').click(function () {
+            if (!$("[name='select_comment_idx']").val()) {
+                alert('수정 글을 선택 하세요.');
+                reutrn;
+            }
 
-        $("[id^='btn_comment_selete']").click(function () {
-            var comment_idx = $(this).attr("id").split('_');
-
-            $("[name='memo']").val( $("[id=txt_comment_selete_"+comment_idx[3]+"]").html().replace(/<br\s?\/?>/g,"\n"));
-            $("[name='select_comment_idx']").attr('value',comment_idx[3]);
-
-            $("[name='frm']").attr('action','/board/{{ board_id }}/replycreate/{{ board_idx }}');
-        });
-
-        $("[id ^= 'btn_comment_update_']").click(function () {
-
-        });
-
-        $("[id ^= 'btn_comment_delete_']").click(function () {
-            var tem_ = $(this).attr('id').split('_');
-
-            $.post("/board/{{ board_id }}/commentdelete/{{ board_idx }}" , {"comment_idx":tem_[3]}, function (data) {
+            $.post("/board/{{ board_id }}/commnetupdate/{{ board_idx }}", $('#frm_comment').serialize() , function(data) {
                 var parse_data = JSON.parse(data);
                 if (parse_data['code'] == "00") {
                     alert(parse_data['msg']);
                     $("#fieldMEMO").val("");
                     $("#comment_table").html(parse_data['value']);
                 }
-            })
+            });
         });
 
     });

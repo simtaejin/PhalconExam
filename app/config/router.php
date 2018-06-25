@@ -63,6 +63,11 @@ $router->add('/board/{board_id}/commnetcreate/{idx}', [
     'action' => 'commnetcreate'
 ]);
 
+$router->add('/board/{board_id}/commnetupdate/{idx}', [
+    'controller' => 'board',
+    'action' => 'commnetupdate'
+]);
+
 $router->add('/board/{board_id}/commentdelete/{idx}', [
     'controller' => 'board',
     'action' => 'commentdelete'

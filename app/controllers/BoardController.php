@@ -49,7 +49,8 @@ class BoardController extends ControllerBase
         $this->view->setVar('board_id', $board_id);
         $this->view->page = $paginator->getPaginate();
         $this->view->files = $board_data->files;
-        $this->view->comment = $board_data->comment;
+        $this->view->comments = $board_data->comments;
+
     }
 
     public function createAction()
@@ -313,10 +314,10 @@ class BoardController extends ControllerBase
                     $k = $k+1;
                     $result['value'] .= "<tr>
                                             <td>{$k}</td>
-                                            <td>".nl2br($v->memo)."</td>
+                                            <td><span id=\"txt_comment_selete_".$v->idx."\">".nl2br($v->memo)."</span></td>
                                             <td>{$v->member}</td>
-                                            <td><span id=\"btn_comment_selete_{$v->idx}\">수정</span></td>
-                                            <td>삭제</td>
+                                            <td><span id=\"btn_comment_selete_".$v->idx."\" onClick=\"btn_comment_selete('btn_comment_selete_".$v->idx."')\" >수정</span></td>
+                                            <td><span id=\"btn_comment_delete_".$v->idx."\" onClick=\"btn_comment_delete('btn_comment_delete_".$v->idx."')\" >삭제</span></td>
                                            </tr>";
                 }
 
@@ -324,6 +325,71 @@ class BoardController extends ControllerBase
                                        </table>";
 
                 echo json_encode($result);
+            }
+
+            exit;
+        }
+    }
+
+    public function commnetupdateAction()
+    {
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_idx = $this->dispatcher->getParam('idx');
+
+        if ($this->request->isAjax()) {
+            $this->view->disable();
+
+            $select_comment_idx = $this->request->getPost("select_comment_idx");
+
+            $board = new Board();
+            $board->setSource($board_id);
+
+            $comments = new Comments();
+            $comments->setSource("comment_boards");
+
+            $comments_date = $comments->findFirstByIdx($select_comment_idx);
+            $comments_date->memo = $this->request->getPost("memo");
+
+            if ($comments_date->update()) {
+                $result['code'] = "00";
+                $result['msg'] = "수정 되었습니다.";
+
+                $comment_data = Comments::find(
+                    [
+                        "board_id = :board_id: AND board_idx = :board_idx:",
+                        "bind" => ["board_id" => $board->getSource(), "board_idx" => $board_idx]
+                    ]
+                );  
+                
+
+                $result['value'] = "<table class=\"table table-bordered\">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>memo</th>
+                                            <th>Member</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>";
+
+                foreach ($comment_data as $k => $v) {
+                    $k = $k+1;
+                    $result['value'] .= "<tr>
+                                        <td>{$k}</td>
+                                        <td><span id=\"txt_comment_selete_".$v->idx."\">".nl2br($v->memo)."</span></td>
+                                        <td>{$v->member}</td>
+                                        <td><span id=\"btn_comment_selete_".$v->idx."\" onClick=\"btn_comment_selete('btn_comment_selete_".$v->idx."')\" >수정</span></td>
+                                        <td><span id=\"btn_comment_delete_".$v->idx."\" onClick=\"btn_comment_delete('btn_comment_delete_".$v->idx."')\" >삭제</span></td>
+                                    </tr>";                                           
+                }
+
+                $result['value'] .= "   </tbody>
+                                    </table>";
+
+                echo json_encode($result);
+
             }
 
             exit;
@@ -373,13 +439,14 @@ class BoardController extends ControllerBase
                                         <tbody>";
 
                 foreach ($comment_data as $k => $v) {
+                    $k = $k+1;                    
                     $result['value'] .= "<tr>
-                                            <td></td>
-                                            <td>".nl2br($v->memo)."</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                           </tr>";
+                                            <td>{$k}</td>
+                                            <td><span id=\"txt_comment_selete_".$v->idx."\">".nl2br($v->memo)."</span></td>
+                                            <td>{$v->member}</td>
+                                            <td><span id=\"btn_comment_selete_".$v->idx."\" onClick=\"btn_comment_selete('btn_comment_selete_".$v->idx."')\" >수정</span></td>
+                                            <td><span id=\"btn_comment_delete_".$v->idx."\" onClick=\"btn_comment_delete('btn_comment_delete_".$v->idx."')\" >삭제</span></td>
+                                        </tr>";
                 }
 
                 $result['value'] .= "   </tbody>
