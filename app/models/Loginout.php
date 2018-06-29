@@ -6,7 +6,7 @@ use Phalcon\Validation\Validator\Regex as RegexValidator;
 use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
 use Phalcon\Security as Security;
 
-class Loginout extends \Phalcon\Mvc\Model
+class Loginout extends ModelBase
 {
     public $idx;
     public $id;

@@ -3,7 +3,7 @@
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
 
-class SetupBoard extends \phalcon\mvc\model
+class SetupBoard extends ModelBase
 {
     public $idx;
     public $id;

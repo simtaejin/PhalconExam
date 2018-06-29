@@ -7,7 +7,6 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class BoardController extends ControllerBase
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -19,8 +18,18 @@ class BoardController extends ControllerBase
         } catch (Exception   $e) {
 
         }
+
+        $board_id = $this->dispatcher->getParam('board_id');
+        $board_setup = new SetupBoard();        
+        $board_setup->setSource("board");
+        $board_setup_data = $board_setup->findFirstById($board_id);
+
+//        print_r($board_setup_data);exit;
     }
 
+    /**
+     * 게시판 리스트
+     */
     public function indexAction()
     {
         $this->persistent->parameters = null;
@@ -53,6 +62,9 @@ class BoardController extends ControllerBase
 
     }
 
+    /**
+     * 게시판 글쓰기
+     */
     public function createAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -120,6 +132,9 @@ class BoardController extends ControllerBase
         }
     }
 
+    /**
+     * 게시판 글뷰
+     */
     public function selectAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -151,6 +166,9 @@ class BoardController extends ControllerBase
         $this->view->setVar("comments", $board_data->comments);
     }
 
+    /**
+     * 게시판 글수정
+     */
     public function updateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -189,6 +207,9 @@ class BoardController extends ControllerBase
         }
     }
 
+    /**
+     * 게시판 글삭제
+     */
     public function deleteAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -209,6 +230,9 @@ class BoardController extends ControllerBase
 
     }
 
+    /**
+     * 리플 글쓰기
+     */
     public function replycreateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -269,6 +293,9 @@ class BoardController extends ControllerBase
         }
     }
 
+    /**
+     * 댓글 글쓰기
+     */
     public function commnetcreateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -331,6 +358,9 @@ class BoardController extends ControllerBase
         }
     }
 
+    /**
+     * 댓글 글수정
+     */
     public function commnetupdateAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
@@ -396,6 +426,9 @@ class BoardController extends ControllerBase
         }
     }
 
+    /**
+     * 댓글 
+     */
     public function commentdeleteAction()
     {
         $board_id = $this->dispatcher->getParam('board_id');
