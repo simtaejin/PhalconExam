@@ -5,8 +5,13 @@ use Phalcon\Mvc\Model\Criteria;
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+
+
 class BoardController extends ControllerBase
 {
+    public $board_setup_data;
+    public $board_id;
+
     public function initialize()
     {
         parent::initialize();
@@ -24,7 +29,8 @@ class BoardController extends ControllerBase
         $board_setup->setSource("board");
         $board_setup_data = $board_setup->findFirstById($board_id);
 
-//        print_r($board_setup_data);exit;
+        $this->board_id = $board_setup_data->id;
+        $this->board_setup_data = get_object_vars($board_setup_data);
     }
 
     /**
@@ -34,7 +40,8 @@ class BoardController extends ControllerBase
     {
         $this->persistent->parameters = null;
 
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
 
         if (!$this->dispatcher->getParam('page')) {
             $numberPage = 1;
@@ -67,7 +74,8 @@ class BoardController extends ControllerBase
      */
     public function createAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
 
         $this->view->setVar('board_id', $board_id);
 
@@ -137,7 +145,8 @@ class BoardController extends ControllerBase
      */
     public function selectAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         $board = new Board();
@@ -171,7 +180,8 @@ class BoardController extends ControllerBase
      */
     public function updateAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         if ($this->request->isPost()) {
@@ -212,7 +222,8 @@ class BoardController extends ControllerBase
      */
     public function deleteAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         $board = new Board();
@@ -235,7 +246,8 @@ class BoardController extends ControllerBase
      */
     public function replycreateAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         $this->view->setVar('board_id', $board_id);
@@ -298,7 +310,8 @@ class BoardController extends ControllerBase
      */
     public function commnetcreateAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         if ($this->request->isAjax()) {
@@ -363,7 +376,8 @@ class BoardController extends ControllerBase
      */
     public function commnetupdateAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         if ($this->request->isAjax()) {
@@ -431,7 +445,8 @@ class BoardController extends ControllerBase
      */
     public function commentdeleteAction()
     {
-        $board_id = $this->dispatcher->getParam('board_id');
+        //$board_id = $this->dispatcher->getParam('board_id');
+        $board_id = $this->board_id;
         $board_idx = $this->dispatcher->getParam('idx');
 
         if ($this->request->isAjax()) {
@@ -484,7 +499,6 @@ class BoardController extends ControllerBase
 
                 $result['value'] .= "   </tbody>
                                        </table>";
-
 
                 echo json_encode($result);
             }
