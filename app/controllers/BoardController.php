@@ -18,19 +18,23 @@ class BoardController extends ControllerBase
         $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
 
-        try {
-            $board = new Board();
-        } catch (Exception   $e) {
-
-        }
-
         $board_id = $this->dispatcher->getParam('board_id');
         $board_setup = new SetupBoard();        
         $board_setup->setSource("board");
         $board_setup_data = $board_setup->findFirstById($board_id);
 
-        $this->board_id = $board_setup_data->id;
-        $this->board_setup_data = get_object_vars($board_setup_data);
+        if ($board_setup_data) {
+            try {
+                $board = new Board();
+            } catch (Exception   $e) {
+
+            }
+
+            $this->board_id = $board_setup_data->id;
+            $this->board_setup_data = get_object_vars($board_setup_data);
+        } else {
+            $this->component->helper->alert("board_id 값을 확인 해주세요.", "/");
+        }
     }
 
     /**
