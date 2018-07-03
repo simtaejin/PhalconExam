@@ -24,6 +24,48 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label for="fieldNAME" class="col-sm-2 control-label">첨부파일 사용여부</label>
+        <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary <?php echo ($file == 'Y') ? 'active' : '' ?> ">
+                    <input type="radio" name="file" id="file_y" value="Y" <?php echo ($file == 'Y') ? 'checked' : '' ?> > 사용
+                </label>
+                <label class="btn btn-primary <?php echo ($file == 'N') ? 'active' : '' ?> ">
+                    <input type="radio" name="file" id="file_n" value="N" <?php echo ($file == 'N') ? 'checked' : '' ?> > 사용 안함
+                </label>
+            </div>      
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="fieldNAME" class="col-sm-2 control-label">답글 사용여부</label>
+        <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary <?php echo ($reply == 'Y') ? 'active' : '' ?> ">
+                    <input type="radio" name="reply" id="reply_y" value="Y" <?php echo ($reply == 'Y') ? 'checked' : '' ?> > 사용
+                </label>
+                <label class="btn btn-primary <?php echo ($reply == 'N') ? 'active' : '' ?> ">
+                    <input type="radio" name="reply" id="reply_n" value="N" <?php echo ($reply == 'N') ? 'checked' : '' ?> > 사용 안함
+                </label>
+            </div>              
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="fieldNAME" class="col-sm-2 control-label">댓글 사용여부</label>
+        <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary <?php echo ($comment == 'Y') ? 'active' : '' ?> ">
+                    <input type="radio" name="comment" id="comment_y" value="Y" <?php echo ($comment == 'Y') ? 'checked' : '' ?> > 사용
+                </label>
+                <label class="btn btn-primary <?php echo ($comment == 'N') ? 'active' : '' ?> ">
+                    <input type="radio" name="comment" id="comment_n" value="N" <?php echo ($comment == 'N') ? 'checked' : '' ?> > 사용 안함
+                </label>
+            </div>
+        </div>
+    </div>    
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 쓰기</button>
 
 </form>

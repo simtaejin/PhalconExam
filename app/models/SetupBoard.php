@@ -8,6 +8,9 @@ class SetupBoard extends ModelBase
     public $idx;
     public $id;
     public $name;
+    public $file;
+    public $reply;
+    public $comment;
     public $created;
 
     public function initialize()

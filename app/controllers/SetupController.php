@@ -106,7 +106,10 @@ class SetupController extends ControllerBase
             $sb_data = $sb->findFirstByIdx($idx);
 
             $sb_data->name = $this->request->getPost("name");
-
+            $sb_data->file = $this->request->getPost("file");
+            $sb_data->reply = $this->request->getPost("reply");
+            $sb_data->comment = $this->request->getPost("comment");                       
+           
             if (!$sb_data->update()) {
                 foreach ($sb_data->getMessages() as $message) {
                     echo $message . "<br>";
@@ -124,6 +127,9 @@ class SetupController extends ControllerBase
             $this->view->setVar("idx", $sb_data->idx);
             $this->view->setVar("id", $sb_data->id);
             $this->view->setVar("name", $sb_data->name);
+            $this->view->setVar("file", $sb_data->file);
+            $this->view->setVar("reply", $sb_data->reply);
+            $this->view->setVar("comment", $sb_data->comment);                        
         }
     }
 
