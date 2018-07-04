@@ -25,22 +25,23 @@
     <div class="form-group">
         <label for="fieldCONTENTS" class="col-sm-2 control-label">Files</label>
         <div class="col-sm-10">
-            <?php if ($files[$board_idx]): ?>
-                <?php foreach ($files[$board_idx] as $k => $v): ?>
+            <?php if ($files[$board_idx]) { ?>
+                <?php foreach ($files[$board_idx] as $k => $v) { ?>
                     <?php echo $v['artifical_name']."<br>" ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 수정</button>
+
+    <?php if ($board_setup_data->reply == "Y") { ?>
     <button class="btn btn-lg btn-primary btn-block" type="button" name="btn_reply" id="btn_reply">글 답글</button>
+    <?php } ?>
 </form>
 
-
+<?php if ($board_setup_data->comment == "Y") { ?>
 <div class="row">
-
-
     <form id="frm_comment" name="frm_comment" class="form-horizontal" method="post">
         <input type="hidden" name="select_comment_idx" value="">
         <div class="form-group">
@@ -55,8 +56,6 @@
         </div>
     </form>
 
-
-
     <table id="comment_table" class="table table-bordered">
         <thead>
         <tr>
@@ -68,8 +67,8 @@
         </tr>
         </thead>
         <tbody>
-        <?php if ($comments[$board_idx]): ?>
-            <?php foreach ($comments[$board_idx] as $k => $v): ?>
+        <?php if ($comments[$board_idx]) { ?>
+            <?php foreach ($comments[$board_idx] as $k => $v) { ?>
             <tr>
                 <td><?php echo $v['idx']?></td>
                 <td><span id="txt_comment_selete_<?php echo $v['comment_idx']?>"><?php echo nl2br($v['memo'])?></span></td>
@@ -77,13 +76,12 @@
                 <td><span id="btn_comment_selete_<?php echo $v['comment_idx']?>"  onClick="btn_comment_selete('btn_comment_selete_<?php echo $v['comment_idx']?>')">수정</span></td>
                 <td><span id="btn_comment_delete_<?php echo $v['comment_idx']?>"  onClick="btn_comment_delete('btn_comment_delete_<?php echo $v['comment_idx']?>')">삭제</span></td>
             </tr>
-            <?php endforeach; ?>
-        <?php endif;?>
+            <?php } ?>
+        <?php } ?>
         </tbody>
     </table>
-
-
 </div>
+<?php } ?>
 
 <script>
     /* 댓글 선택 */

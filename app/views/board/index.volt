@@ -20,22 +20,15 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $v => $board): ?>
+        <?php foreach ($page->items as $v => $board) { ?>
             <tr>
-                <td>
-                        <?php echo $page_num - $v?>
-
-                </td>
+                <td><?php echo $page_num - $v?></td>
                 <td>
                     <?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $board->title]);?>
                     <?php
-
-                  
-                  
                         if (isset($comments[$board->idx][0])) {
                             echo "(".count($comments[$board->idx]).")";
-                        }
-                                           
+                        }                  
                     ?>
                 </td>
                 <td><?php echo $board->member ?></td>
@@ -50,7 +43,7 @@
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/update/".$board->idx, "수정"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["board/".$board_id."/delete/". $board->idx, "삭제"]); ?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php } ?>
         </tbody>
     </table>
 </div>

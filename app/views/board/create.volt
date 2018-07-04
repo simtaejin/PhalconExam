@@ -16,7 +16,6 @@
         </div>
     </div>
 
-
     <div class="form-group">
         <label for="fieldCONTENTS" class="col-sm-2 control-label">Contents</label>
         <div class="col-sm-10">
@@ -24,6 +23,7 @@
         </div>
     </div>
 
+    <?php if ($board_setup_data->file == "Y") { ?>
     <div class="form-group">
         <label for="fieldFILE" class="col-sm-2 control-label">FILES</label>
         <div class="col-sm-10">
@@ -31,7 +31,8 @@
             <input type="file" name="files[]" id="fieldFILE2" class="form-control">
         </div>
     </div>
-
+    <?php } ?>
+    
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 쓰기</button>
 
 </form>

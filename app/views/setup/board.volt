@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $v => $sb_data): ?>
+        <?php foreach ($page->items as $v => $sb_data) { ?>
         <tr>
             <td><?php echo $page_num - $v?></td>
             <td><?php echo $sb_data->id ?></td>
@@ -28,7 +28,7 @@
             <td><?php echo $this->tag->linkTo(["setup/board/update/".$sb_data->idx, "수정"]); ?></td>
             <td><?php echo $this->tag->linkTo(["setup/board/delete/". $sb_data->idx, "삭제"]); ?></td>
         </tr>
-        <?php endforeach; ?>
+        <?php } ?>
         </tbody>
     </table>
 </div>

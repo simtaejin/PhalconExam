@@ -32,6 +32,7 @@ class BoardController extends ControllerBase
 
             $this->board_id = $board_setup_data->id;
             $this->board_setup_data = get_object_vars($board_setup_data);
+            $this->view->board_setup_data = $board_setup_data;
         } else {
             $this->component->helper->alert("board_id 값을 확인 해주세요.", "/");
         }
