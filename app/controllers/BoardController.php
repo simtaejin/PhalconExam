@@ -18,6 +18,15 @@ class BoardController extends ControllerBase
         $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
 
+        $_board_list = scandir($this->view->getViewsDir()."board/");
+
+        foreach ($_board_list as $key => $value) {
+            if (is_dir($this->view->getViewsDir()."board/".$value) && !in_array($value, array(".","..")) ) {
+                echo $value."<br>";
+            }
+        }
+
+
         $board_id = $this->dispatcher->getParam('board_id');
         $board_setup = new SetupBoard();        
         $board_setup->setSource("board");
@@ -72,6 +81,7 @@ class BoardController extends ControllerBase
         $this->view->files = $board_data->files;
         $this->view->comments = $board_data->comments;
 
+        $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
 
     /**
@@ -87,7 +97,7 @@ class BoardController extends ControllerBase
         if ($this->request->isPost()) {
             $this->view->disable();
 
-            $this->component->helper->csrf("board/create");
+            $this->component->helper->csrf("/board/".$board_id."/create/");
 
             $board = new Board();
             $board->setSource($board_id);
@@ -143,6 +153,8 @@ class BoardController extends ControllerBase
 
             $this->component->helper->alert("글 등록 되었습니다.", "/board/" . $board_id . "/");
         }
+
+        $this->view->pick('board/skin/'.$this->router->getActionName());
     }
 
     /**
@@ -178,6 +190,8 @@ class BoardController extends ControllerBase
         $this->view->setVar("content", $board_data[0]->content);
         $this->view->setVar("files", $board_data->files);
         $this->view->setVar("comments", $board_data->comments);
+
+        $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
 
     /**
@@ -220,6 +234,8 @@ class BoardController extends ControllerBase
             $this->view->setVar("content", $board_data->content);
 
         }
+
+        $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
 
     /**
@@ -244,6 +260,7 @@ class BoardController extends ControllerBase
 
         $this->component->helper->alert("회원 삭제 되었습니다.", "/board/" . $board_id . "/");
 
+        $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
 
     /**
@@ -308,6 +325,8 @@ class BoardController extends ControllerBase
             $this->view->setVar("title", $board_data->title);
             $this->view->setVar("content", $board_data->content);
         }
+
+        $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
 
     /**

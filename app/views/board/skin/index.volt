@@ -28,7 +28,7 @@
                     <?php
                         if (isset($comments[$board->idx][0])) {
                             echo "(".count($comments[$board->idx]).")";
-                        }                  
+                        }
                     ?>
                 </td>
                 <td><?php echo $board->member ?></td>

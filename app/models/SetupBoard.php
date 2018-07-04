@@ -8,6 +8,7 @@ class SetupBoard extends ModelBase
     public $idx;
     public $id;
     public $name;
+    public $skin;
     public $file;
     public $reply;
     public $comment;
