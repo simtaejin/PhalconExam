@@ -25,6 +25,18 @@
     </div>
 
     <div class="form-group">
+        <label for="fieldNAME" class="col-sm-2 control-label">게시판 스킨</label>
+        <div class="col-sm-10">
+            <select name="skin" id="fieldSKIN" class="form-control">
+                <option value="">스킨을 선택하세요.</option>
+                <?php foreach ($_board_skin_list as $k => $v) { ?>
+                    <option value="<?php echo $v;?>" <?php if ($skin == $v) { echo "selected"; } ?>  ><?php echo $v;?></option>
+                <?php }  ?>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
         <label for="fieldNAME" class="col-sm-2 control-label">첨부파일 사용여부</label>
         <div class="col-sm-10">
             <div class="btn-group" data-toggle="buttons">

@@ -35,12 +35,12 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">글 수정</button>
 
-    <?php if ($board_setup_data->reply == "Y") { ?>
+    <?php if ($board_setup_data['reply'] == "Y") { ?>
     <button class="btn btn-lg btn-primary btn-block" type="button" name="btn_reply" id="btn_reply">글 답글</button>
     <?php } ?>
 </form>
 
-<?php if ($board_setup_data->comment == "Y") { ?>
+<?php if ($board_setup_data['comment'] == "Y") { ?>
 <div class="row">
     <form id="frm_comment" name="frm_comment" class="form-horizontal" method="post">
         <input type="hidden" name="select_comment_idx" value="">

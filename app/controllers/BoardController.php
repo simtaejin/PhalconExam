@@ -5,8 +5,6 @@ use Phalcon\Mvc\Model\Criteria;
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
-
-
 class BoardController extends ControllerBase
 {
     public $board_setup_data;
@@ -17,15 +15,6 @@ class BoardController extends ControllerBase
         parent::initialize();
         $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
-
-        $_board_list = scandir($this->view->getViewsDir()."board/");
-
-        foreach ($_board_list as $key => $value) {
-            if (is_dir($this->view->getViewsDir()."board/".$value) && !in_array($value, array(".","..")) ) {
-                echo $value."<br>";
-            }
-        }
-
 
         $board_id = $this->dispatcher->getParam('board_id');
         $board_setup = new SetupBoard();        
@@ -41,7 +30,7 @@ class BoardController extends ControllerBase
 
             $this->board_id = $board_setup_data->id;
             $this->board_setup_data = get_object_vars($board_setup_data);
-            $this->view->board_setup_data = $board_setup_data;
+            $this->view->setVar('board_setup_data', $this->board_setup_data);
         } else {
             $this->component->helper->alert("board_id 값을 확인 해주세요.", "/");
         }
@@ -77,9 +66,9 @@ class BoardController extends ControllerBase
         ]);
 
         $this->view->setVar('board_id', $board_id);
-        $this->view->page = $paginator->getPaginate();
-        $this->view->files = $board_data->files;
-        $this->view->comments = $board_data->comments;
+        $this->view->setVar('page', $paginator->getPaginate());
+        $this->view->setVar('files', $board_data->files);
+        $this->view->setVar('comments', $board_data->comments);
 
         $this->view->pick('board/'.$this->board_setup_data['skin'].'/'.$this->router->getActionName());
     }
@@ -91,8 +80,6 @@ class BoardController extends ControllerBase
     {
         //$board_id = $this->dispatcher->getParam('board_id');
         $board_id = $this->board_id;
-
-        $this->view->setVar('board_id', $board_id);
 
         if ($this->request->isPost()) {
             $this->view->disable();
@@ -144,16 +131,14 @@ class BoardController extends ControllerBase
 
                         $files->create();
                         $v->moveTo($this->config->application->dataDir . "/board/" . $board_id . "/" . Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM) . "." . $v->getExtension());
-
                     }
-
                 }
-
             }
 
             $this->component->helper->alert("글 등록 되었습니다.", "/board/" . $board_id . "/");
         }
 
+        $this->view->setVar('board_id', $board_id);
         $this->view->pick('board/skin/'.$this->router->getActionName());
     }
 

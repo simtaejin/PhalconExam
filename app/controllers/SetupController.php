@@ -89,6 +89,17 @@ class SetupController extends ControllerBase
 
             $this->component->helper->alert("게시판이 등록 되었습니다.", "/setup/board/");
         }
+
+        $_board_list = scandir($this->view->getViewsDir()."board/");
+
+        foreach ($_board_list as $key => $value) {
+            if (is_dir($this->view->getViewsDir()."board/".$value) && !in_array($value, array(".","..")) ) {
+                $_board_skin_list[] = $value;
+            }
+        }
+
+        $this->view->setVar('_board_skin_list', $_board_skin_list);
+
     }
 
     public function board_updateAction()
@@ -127,10 +138,21 @@ class SetupController extends ControllerBase
             $this->view->setVar("idx", $sb_data->idx);
             $this->view->setVar("id", $sb_data->id);
             $this->view->setVar("name", $sb_data->name);
+            $this->view->setVar("skin", $sb_data->skin);
             $this->view->setVar("file", $sb_data->file);
             $this->view->setVar("reply", $sb_data->reply);
             $this->view->setVar("comment", $sb_data->comment);                        
         }
+
+        $_board_list = scandir($this->view->getViewsDir()."board/");
+
+        foreach ($_board_list as $key => $value) {
+            if (is_dir($this->view->getViewsDir()."board/".$value) && !in_array($value, array(".","..")) ) {
+                $_board_skin_list[] = $value;
+            }
+        }
+
+        $this->view->setVar('_board_skin_list', $_board_skin_list);
     }
 
     public function board_deleteAction()

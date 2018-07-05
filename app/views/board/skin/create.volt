@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <?php if ($board_setup_data->file == "Y") { ?>
+    <?php if ($board_setup_data['file'] == "Y") { ?>
     <div class="form-group">
         <label for="fieldFILE" class="col-sm-2 control-label">FILES</label>
         <div class="col-sm-10">

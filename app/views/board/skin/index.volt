@@ -1,6 +1,6 @@
 
 <div class="page-header">
-    <h1>{{ board_id }} list</h1>
+    <h1><?php echo $board_setup_data['name']?> list</h1>
     <p>
         <?php echo $this->tag->linkTo(["board/".$board_id."/create/", "추가"]); ?>
     </p>
