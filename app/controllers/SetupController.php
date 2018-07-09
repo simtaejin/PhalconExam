@@ -55,6 +55,7 @@ class SetupController extends ControllerBase
             $board->setSource("board");
             $board->id = $this->request->getPost("id");
             $board->name = $this->request->getPost("name");
+            $board->skin = $this->request->getPost("skin");
 
             if (!$board->create()) {
                 foreach ($board->getMessages() as $message) {
@@ -117,6 +118,7 @@ class SetupController extends ControllerBase
             $sb_data = $sb->findFirstByIdx($idx);
 
             $sb_data->name = $this->request->getPost("name");
+            $sb_data->skin = $this->request->getPost("skin");
             $sb_data->file = $this->request->getPost("file");
             $sb_data->reply = $this->request->getPost("reply");
             $sb_data->comment = $this->request->getPost("comment");                       

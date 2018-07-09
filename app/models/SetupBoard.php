@@ -19,7 +19,7 @@ class SetupBoard extends ModelBase
 
         $this->setschema("phalcon_exam");
 
-        $this->allowEmptyStringValues(['id', 'name']);
+        $this->allowEmptyStringValues(['id', 'name', 'skin']);
         //$this->skipAttributes(['idx']);
     }
 
@@ -46,7 +46,8 @@ class SetupBoard extends ModelBase
         $validator->add(['id','name'], new PresenceOf([
             'message' => [
                 'id' => 'id을 입력하세요.',                
-                'name' => 'title을 입력하세요.'
+                'name' => 'title을 입력하세요.',
+                'skin' => 'skin을 선택하세요.'
             ],
         ]));
 
