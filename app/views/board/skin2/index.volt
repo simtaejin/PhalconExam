@@ -7,6 +7,8 @@
 </div>
 <?php $page_num = $page->total_items + ($page->limit * (1-$page->current));?>
 <div class="row">
+
+<!--
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -46,6 +48,26 @@
         <?php } ?>
         </tbody>
     </table>
+-->
+
+    <table>
+        <tr>
+            <?php foreach ($page->items as $v => $board) { ?>
+            <td >
+                <?
+                if (isset($files[$board->idx][0])) {
+                    $this->component->helper->get_thumbnail_images();
+                }
+                ?>
+            </td>
+                <?php if ($v % 4 == 3) { ?> 
+                    </tr><tr>
+                <?php } ?>
+            <?php } ?>
+        </tr>
+    </table>
+
+
 </div>
 
 <div class="row">

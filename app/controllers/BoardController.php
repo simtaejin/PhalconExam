@@ -84,7 +84,7 @@ class BoardController extends ControllerBase
         if ($this->request->isPost()) {
             $this->view->disable();
 
-            $this->component->helper->csrf("/board/".$board_id."/create/");
+            //$this->component->helper->csrf("/board/".$board_id."/create/");
 
             $board = new Board();
             $board->setSource($board_id);
@@ -130,7 +130,14 @@ class BoardController extends ControllerBase
                         $files->artifical_name = Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM) . "." . $v->getExtension();
 
                         $files->create();
-                        $v->moveTo($this->config->application->dataDir . "/board/" . $board_id . "/" . Phalcon\Text::random(Phalcon\Text::RANDOM_ALNUM) . "." . $v->getExtension());
+                        $v->moveTo($this->config->application->dataDir . "/board/" . $board_id . "/" . $files->artifical_name);
+
+                        if ($k == 0 && ($v->getType() == "image/jpeg" || $v->getType() == "image/png" || $v->getType() == "image/gif") ) {
+                            //print_r($v);
+                            $this->component->helper->set_thumbnail_images($board_id, $files->artifical_name,"140", "140");
+                            exit;
+                            //$this->component->helper->set_thumbnail_images();
+                        }
                     }
                 }
             }
