@@ -109,7 +109,6 @@ class BoardController extends ControllerBase
                 $temp_data->ref_group = $board->idx;
                 $temp_data->update();
 
-
                 if ($this->request->hasFiles()) {
 
                     if (!is_dir($this->config->application->dataDir . "/board/" . $board_id)) {
@@ -133,13 +132,12 @@ class BoardController extends ControllerBase
                         $v->moveTo($this->config->application->dataDir . "/board/" . $board_id . "/" . $files->artifical_name);
 
                         if ($k == 0 && ($v->getType() == "image/jpeg" || $v->getType() == "image/png" || $v->getType() == "image/gif") ) {
-                            //print_r($v);
-                            $this->component->helper->set_thumbnail_images($board_id, $files->artifical_name,"140", "140");
-                            exit;
-                            //$this->component->helper->set_thumbnail_images();
+                            $this->component->helper->set_thumbnail_images($board_id, $files->artifical_name, "140", "140");
                         }
                     }
+
                 }
+
             }
 
             $this->component->helper->alert("글 등록 되었습니다.", "/board/" . $board_id . "/");

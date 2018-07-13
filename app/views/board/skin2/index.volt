@@ -8,57 +8,13 @@
 <?php $page_num = $page->total_items + ($page->limit * (1-$page->current));?>
 <div class="row">
 
-<!--
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>No</th>
-            <th>Title</th>
-            <th>Member</th>
-	        <th>Files</th>
-            <th>Created</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($page->items as $v => $board) { ?>
-            <tr>
-                <td><?php echo $page_num - $v?></td>
-                <td>
-                    <?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $board->title]);?>
-                    <?php
-                        if (isset($comments[$board->idx][0])) {
-                            echo "(".count($comments[$board->idx]).")";
-                        }
-                    ?>
-                </td>
-                <td><?php echo $board->member ?></td>
-                <td>
-                    <?php
-                    if (isset($files[$board->idx][0])) {
-                        echo count($files[$board->idx]);
-                    }
-                    ?>
-                </td>
-                <td><?php echo $this->component->helper->dateformate("Y.m.d H.i.s", $board->created )?></td>
-                <td><?php echo $this->tag->linkTo(["board/".$board_id."/update/".$board->idx, "수정"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["board/".$board_id."/delete/". $board->idx, "삭제"]); ?></td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
--->
-
     <table>
         <tr>
             <?php foreach ($page->items as $v => $board) { ?>
             <td >
-                <?
-                if (isset($files[$board->idx][0])) {
-                    $this->component->helper->get_thumbnail_images();
-                }
-                ?>
+                <? if (isset($files[$board->idx][0])) { ?>
+                    <?php echo $this->tag->linkTo(["board/".$board_id."/select/".$board->idx, $this->tag->imageInput(["src" => $this->component->helper->get_thumbnail_images($board_id, $files[$board->idx][0]['artifical_name'])])] );?>
+                <? } ?>
             </td>
                 <?php if ($v % 4 == 3) { ?> 
                     </tr><tr>
@@ -66,7 +22,6 @@
             <?php } ?>
         </tr>
     </table>
-
 
 </div>
 
