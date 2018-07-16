@@ -19,7 +19,9 @@ class Helper extends \Phalcon\Mvc\User\Component
 
     public function alert($message, $redirect = "")
     {
-        if (!$message) $message = "메세지를 입력 하세요.";
+        if (!$message) {
+            $message = "메세지를 입력 하세요.";
+        }
 
         if ($redirect) {
             $url = "location.href='" . $redirect . "';";
@@ -38,17 +40,19 @@ HERE;
 
     public function printr($arr)
     {
-        
+
         if (is_object($arr)) {
             echo "<xmp>";
             var_dump($arr);
             echo "</xmp>";
-        } else if (is_array($arr)) {
-            echo "<xmp>";
-            print_r($arr);
-            echo "</xmp>";
+        } else {
+            if (is_array($arr)) {
+                echo "<xmp>";
+                print_r($arr);
+                echo "</xmp>";
+            }
         }
-       
+
         return false;
     }
 
@@ -60,6 +64,16 @@ HERE;
         }
 
         return $temp;
+    }
+
+    public function is_file_check($board_id, $file_name)
+    {
+        if (file_exists($this->config->application->dataDir."/board/".$board_id."/".$file_name)) {
+            return  true;
+        } else {
+            return false;
+        }
+
     }
 
 }

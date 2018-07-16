@@ -112,12 +112,6 @@ class BoardController extends ControllerBase
 
                 if ($this->request->hasFiles()) {
 
-                    if (!is_dir($this->config->application->dataDir . "/board/" . $board_id)) {
-                        mkdir($this->config->application->dataDir, 0777);
-                        mkdir($this->config->application->dataDir . "/board/", 0777);
-                        mkdir($this->config->application->dataDir . "/board/" . $board_id, 0777);
-                    }
-
                     foreach ($this->request->getUploadedFiles() as $k => $v) {
 
                         $files = new Files();

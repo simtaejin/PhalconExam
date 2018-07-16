@@ -86,6 +86,17 @@ class SetupController extends ControllerBase
                         ]
                     );
                 }
+
+                if (!is_dir($this->config->application->dataDir . "/board/" . $board->id)) {
+                    mkdir($this->config->application->dataDir, 0777);
+                    mkdir($this->config->application->dataDir . "/board/", 0777);
+                    mkdir($this->config->application->dataDir . "/board/" . $board->id, 0777);
+                }
+
+                if (!is_dir($this->config->application->dataDir . "/board/" . $board->id."/thumbnail/")) {
+                    mkdir($this->config->application->dataDir . "/board/" . $board->id."/thumbnail/", 0777);
+                }
+
             }
 
             $this->component->helper->alert("게시판이 등록 되었습니다.", "/setup/board/");
