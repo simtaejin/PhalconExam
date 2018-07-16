@@ -66,6 +66,48 @@ HERE;
         return $temp;
     }
 
+    public function set_thumbnail_images($board_id, $file_name, $width = "140", $height = "140")
+    {
+        if (!is_dir($this->config->application->dataDir . "/board/".$board_id."/thumbnail/")) {
+            mkdir($this->config->application->dataDir . "/board/" . $board_id."/thumbnail/", 0777);
+        }
+
+        $image = new \Phalcon\Image\Adapter\Gd( $this->config->application->dataDir . "/board/".$board_id."/".$file_name);
+        $image->resize($width, $height);
+        $image->save($this->config->application->dataDir . "/board/" . $board_id."/thumbnail/".$file_name);
+    }
+
+    public function get_thumbnail_images($board_id = "" , $file_name = "") {
+
+
+        if (file_exists($this->config->application->dataDir."/board/".$board_id."/thumbnail/".$file_name)) {
+            return  "/data/board/".$board_id."/thumbnail/".$file_name;
+        }
+    }
+
+    /*
+    function resizeImage($source, $dest, $new_width, $new_height, $quality)
+    {
+        // Taken from http://salman-w.blogspot.com/2009/04/crop-to-fit-image-using-aspphp.html
+        $image = new Phalcon\Image\Adapter\GD($source);
+        $source_height = $image->getHeight();
+        $source_width = $image->getWidth();
+        $source_aspect_ratio = $source_width / $source_height;
+        $desired_aspect_ratio = $new_width / $new_height;
+        if ($source_aspect_ratio > $desired_aspect_ratio) {
+            $temp_height = $new_height;
+            $temp_width = ( int ) ($new_height * $source_aspect_ratio);
+        } else {
+            $temp_width = $new_width;
+            $temp_height = ( int ) ($new_width / $source_aspect_ratio);
+        }
+        $x0 = ($temp_width - $new_width) / 2;
+        $y0 = ($temp_height - $new_height) / 2;
+        $image->resize($temp_width, $temp_height)->crop($new_width, $new_height, $x0, $y0);
+        $image->save($dest, $quality);
+    }
+    */
+
     public function is_file_check($board_id, $file_name)
     {
         if (file_exists($this->config->application->dataDir."/board/".$board_id."/".$file_name)) {
