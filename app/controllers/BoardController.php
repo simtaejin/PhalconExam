@@ -46,12 +46,18 @@ class BoardController extends ControllerBase
         //$board_id = $this->dispatcher->getParam('board_id');
         $board_id = $this->board_id;
 
+        $search_category = $this->request->get("search_category");
+        $search_text = $this->request->get("search_text");
+
         if (!$this->dispatcher->getParam('page')) {
             $numberPage = 1;
         } else {
             $numberPage = $this->dispatcher->getParam('page');
         }
 
+        if ($search_text) {
+            $parameters["conditions"] = "{$search_category} like '%{$search_text}%' ";
+        }
         $parameters["order"] = "ref_group desc, ref_order asc";
 
         $board = new Board();
@@ -67,6 +73,8 @@ class BoardController extends ControllerBase
 
         $this->view->setVar('board_id', $board_id);
         $this->view->setVar('page', $paginator->getPaginate());
+        $this->view->setVar('search_category', $search_category);
+        $this->view->setVar('search_text', $search_text);
         $this->view->setVar('files', $board_data->files);
         $this->view->setVar('comments', $board_data->comments);
 

@@ -49,12 +49,12 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-1">
+    <div class="col-sm-1" >
         <p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
             <?php echo $page->current, "/", $page->total_pages ?>
         </p>
     </div>
-    <div class="col-sm-11">
+    <div class="col-sm-7">
         <nav>
             <ul class="pagination">
                 <li><?php echo $this->tag->linkTo("board/".$board_id."/" ,"First") ?></li>
@@ -63,5 +63,16 @@
                 <li><?php echo $this->tag->linkTo("board/".$board_id."/".$page->last, "Last") ?></li>
             </ul>
         </nav>
+    </div>
+    <div class="col-sm-4">
+        <form method="get" class="navbar-form navbar-right">
+            <select name="search_category" class="form-control">
+                <option value="title" <?php if ($search_category == "title") { echo "selected"; } ?> >제목</option>
+                <option value="member" <?php if ($search_category == "member") { echo "selected"; } ?> >member</option>
+                <option value="content" <?php if ($search_category == "content") { echo "selected"; } ?> >내용</option>
+            </select>
+            <input type="text" name="search_text" class="form-control" value="<?php echo $search_text?>">
+            <button class="btn btn-block" type="submit">찾기</button>
+        </fomr>
     </div>
 </div>
