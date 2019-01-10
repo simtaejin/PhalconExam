@@ -11,7 +11,6 @@ class MemberController extends ControllerBase
 //            $this->response->redirect("loginout/login");
 //        }
         parent::initialize();
-        $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
     }
 

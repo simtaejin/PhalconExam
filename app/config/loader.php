@@ -14,7 +14,8 @@ $loader->registerDirs(
 
 $loader->registerClasses(
     [
-        'Component\Helper' => APP_PATH.'/components/Helper.php'
+        'Component\Helper' => APP_PATH.'/components/Helper.php',
+        'Plugin\SecurityPlugin' => $config->application['pluginsDir'].'SecurityPlugin.php'
     ]
 )->register();
 

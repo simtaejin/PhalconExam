@@ -20,7 +20,7 @@ class Board extends ModelBase
     {
         $this->setschema("phalcon_exam");
 
-        $this->allowEmptyStringValues(['title', 'content']);
+        //$this->allowEmptyStringValues(['title', 'content']);
         //$this->skipAttributes(['idx']);
     }
 
@@ -125,6 +125,17 @@ class Board extends ModelBase
 
         return $result;
         //return parent::find($parameters);
+    }
+
+    public function latest($limit = 0)
+    {
+        $parameters[0] = "ref_level = '0'";
+        $parameters["order"] = "ref_group desc";
+        $parameters["limit"] = $limit;
+
+        $board_data = $this->finds($parameters);
+
+        return $board_data;
     }
 
     public function setTemp($temp)

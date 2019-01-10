@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fixed Top Navbar Example for Bootstrap</title>
+    <title>phalcon exam</title>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -27,7 +27,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/public/third-party/navbar-fixed-top.css" rel="stylesheet">
-    <link href="/public/third-party/sticky-footer-navbar.css" rel="stylesheet">
+    <!--<link href="/public/third-party/sticky-footer-navbar.css" rel="stylesheet">-->
+    <link href="/public/third-party/justified-nav.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="/public/third-party/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -38,6 +39,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
 </head>
 
 <body>

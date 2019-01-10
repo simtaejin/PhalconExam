@@ -7,6 +7,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+use Phalcon\Mvc\Dispatcher;
 
 /**
  * Shared configuration service
@@ -110,6 +111,15 @@ $di->setShared('session', function () {
     return $session;
 });
 
+$di->set('dispatcher', function () {
+    $eventsManager = new \Phalcon\Events\Manager();
+    //$eventsManager->attach("dispatch", new \Plugin\SecurityPlugin());
+
+    $dispatcher = new Dispatcher();
+    $dispatcher->setEventsManager($eventsManager);
+
+    return $dispatcher;
+});
 
 $di->setShared('component', function () {
     $obj = new stdClass();

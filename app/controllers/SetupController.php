@@ -10,7 +10,6 @@ class SetupController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-        $this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
     }
 

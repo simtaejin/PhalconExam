@@ -13,7 +13,7 @@ class BoardController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-        $this->view->setTemplateAfter('backend');
+        //$this->view->setTemplateAfter('backend');
         $this->view->setVar("userId", $this->session->get("id"));
 
         $board_id = $this->dispatcher->getParam('board_id');

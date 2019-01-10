@@ -44,6 +44,7 @@ class LoginoutController extends ControllerBase
                 $login->update();
 
                 $this->session->set('id', $member->id);
+                $this->session->set('role', $member->role);
                 $this->response->redirect("index");
             } else {
                 $this->component->helper->alert("패스워드를 확인 하세요.", "/loginout/login");
